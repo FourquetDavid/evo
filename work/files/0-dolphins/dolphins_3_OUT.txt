@@ -1,0 +1,73 @@
+
+   Summary motif results
+   =====================
+mfinder Version 1.20
+
+MOTIF FINDER RESULTS:
+
+	Network name: ../work/files/0-dolphins/dolphins.txt
+	Network type: Non-Directed
+	Num of Nodes: 62 Num of Edges: 159
+	Num of Nodes with edges: 62
+
+The following motifs were found:
+
+Criteria taken : Nreal Zscore > 2.00
+                 Pval ignored (due to small number of random networks)
+                 Mfactor > 1.10
+                 Uniqueness >= 4
+
+
+
+	Full list includes 1 motifs
+MOTIF	NREAL	NRAND		NREAL	NREAL	UNIQ	CREAL
+ID		STATS		ZSCORE	PVAL	VAL	[MILI]	
+
+238	95	33.5+-4.5	13.57	0.000	9	129.60
+
+0 1 1 
+1 0 1 
+1 1 0 
+
+
+
+
+Full list of subgraphs size 3 ids:
+
+	( Total num of different subgraphs size 3 is : 13 )
+
+MOTIF	NREAL	NRAND		NREAL	NREAL	CREAL	UNIQ
+ID		STATS		ZSCORE	PVAL	[MILI]	
+6	0	0.0+-0.0	888888	1.000	0.00	0
+
+12	0	0.0+-0.0	888888	1.000	0.00	0
+
+14	0	0.0+-0.0	888888	1.000	0.00	0
+
+36	0	0.0+-0.0	888888	1.000	0.00	0
+
+38	0	0.0+-0.0	888888	1.000	0.00	0
+
+46	0	0.0+-0.0	888888	1.000	0.00	0
+
+74	0	0.0+-0.0	888888	1.000	0.00	0
+
+78	638	822.4+-13.6	-13.57	1.000	870.40	15
+
+98	0	0.0+-0.0	888888	1.000	0.00	0
+
+102	0	0.0+-0.0	888888	1.000	0.00	0
+
+108	0	0.0+-0.0	888888	1.000	0.00	0
+
+110	0	0.0+-0.0	888888	1.000	0.00	0
+
+238	95	33.5+-4.5	13.57	0.000	129.60	9
+
+
+
+ (Application total runtime was:   10.0 seconds.)
+
+ (Real network processing runtime was:    0.0 seconds.)
+
+ (Single Random network processing runtime was:    0.1 seconds.)

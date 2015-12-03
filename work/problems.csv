@@ -1,0 +1,192 @@
+number;name;nb_nodes;nb_edges;is_directed;has_multiple_edges;is_bipartite;is_weighted;is_signed;is_dynamic;number_of_node_datas;list_node_datas;number_of_edge_datas;list_edge_datas;;
+72;email-EuAll;300069/300069;420045;True;False;False;False;False;False;0;[];1/0;[];False;
+45;MathSciNet;391529/391529;873775;False;False;False;True;False;False;0;[];1/1;['weight'];False;
+0;munmun_twitter_social;465017;834797/834798;True;False;False;False;False;False;0;;0;;False;
+86;wikisigned-k2;138592/138592;740397;True;False;False;False;True;False;0;[];1/1;['weight'];False;
+0;dbpedia-location;225498;293697/293735;False;False;True;False;False;False;1;type;0;;False;
+0;dbpedia-team;935627/138652;1366466/444025;False;False;True;False;False;False;1;type;0;;False;
+0;bibsonomy-2ui;773241/777084;2555080;False;True;True;False;False;False;1;type;0/1;/timestamp;False;
+107;LiveJournal;/2238731;14608137;False/True;/False;/False;False;False;/False;0;[];/0;[];False;
+0;edit-itwiki;2393568/2362873;26241217;False;True;True;False;False;False;1;type;0/1;/timestamp;False;
+99;Digg;/771231;7261524;False/True;/False;/False;False;False;/False;0;[];/0;[];False;
+0;dbpedia-writer;135569/135575;144340/144351;False;False;True;False;False;False;1;type;0;;False;
+0;dbpedia-all;3966924/3967075;13820853/13834627;True;True;False;False;False;False;0;;0;;False;
+0;edit-frwiki;4310551/4280701;46168355;False;True;True;False;False;False;1;type;0/1;/timestamp;False;
+0;dbpedia-country;592414/550522;637134/596614;False;True;True;False;False;False;1;type;0;;False;
+0;edit-enwiktionary;2133892/2123868;8998641;False;True;True;False;False;False;1;type;0/1;/timestamp;False;
+0;dbpedia-occupation;229307/230167;250945/252279;False;False;True;False;False;False;1;type;0;;False;
+0;edit-frwiktionary;1912264/1910438;7399298;False;True;True;False;False;False;1;type;0/1;/timestamp;False;
+0;dbpedia-genre;266717/266836;463497/464117;False;False;True;False;False;False;1;type;0;;False;
+103;Foursquare;/639014;3473834;False/True;/False;/False;False;False;/False;0;[];/0;[];False;
+0;edit-eswiki;3288398/3246076;27011506;False;True;True;False;False;False;1;type;0/1;/timestamp;False;
+98;Delicious;/537387;1385843;False/True;/False;/False;False;False;/False;0;[];/0;[];False;
+106;Lastfm;/1193699;5115300;False/True;/False;/False;False;False;/False;0;[];/0;[];False;
+0;flickr-links;1715255;15550782/15555042;False;False;False;False;False;False;0;;0;;False;
+0;dblp-author;5425963/4957679;8649016/7779691;False;False;True;False;False;False;1;type;0;;False;
+0;bibsonomy-2ti;972120/975963;2555080;False;True;True;False;False;False;1;type;0/1;/timestamp;False;
+104;Friendster;/5689498;14067887;False;/False;/False;False;False;/False;0;[];/0;[];False;
+105;Hyves;/1402692;2777419;False;/False;/False;False;False;/False;0;[];/0;[];False;
+0;amazon-ratings;3376972;5838041/5743258;False;False;True;True;False;False;1;type;1/2;weight/timestamp_weight;False;
+0;youtube-links;1138499;4942297/2990443;True/False;False;False;False;False;False;0;;0;;False;
+0;youtube-u-growth;3223589;9375374/9376594;False;False;False;False;False;False;0;;1;timestamp;False;
+0;zhishi-hudong-relatedpages;2452715;18854882/18855235;True;False;False;False;False;False;0;;0;;False;
+27;stud98;34/34;945;True;True/False;False;False;False;True;5;['gender', 'age', 'program', 'somking', 'spells'];6/1;['relationship'];False;
+47;Cross_Parker-Consulting;46/46;1737;True;False/True;False;True/False;False;False;4;['gender', 'region', 'orglevel', 'location'];1/2;['has_expertise', 'ask_for_advice'];True;
+42;PGP-giantcompo;57243/10680;24316;True/False;/False;False;False;False;False;0;[];1/0;[];False;
+44;TerrorAttack;851/1293;3743;False/True;False/True;False;False;False;False;107;['attribute83', 'attribute82', 'attribute81', 'attribute80', 'attribute87', 'attribute86', 'attribute85', 'attribute84', 'attribute89', 'attribute88', 'label_type', 'attribute90', 'attribute91', 'attribute92', 'attribute93', 'attribute94', 'attribute95', 'attribute96', 'attribute97', 'attribute98', 'attribute99', 'attribute18', 'attribute19', 'attribute10', 'attribute11', 'attribute12', 'attribute13', 'attribute14', 'attribute15', 'attribute16', 'attribute17', 'attribute29', 'attribute28', 'attribute25', 'attribute24', 'attribute27', 'attribute26', 'attribute21', 'attribute20', 'attribute23', 'attribute22', 'attribute8', 'attribute9', 'attribute2', 'attribute3', 'attribute0', 'attribute1', 'attribute6', 'attribute7', 'attribute4', 'attribute5', 'attribute32', 'attribute33', 'attribute30', 'attribute31', 'attribute36', 'attribute37', 'attribute34', 'attribute35', 'attribute38', 'attribute39', 'attribute78', 'attribute79', 'attribute47', 'attribute46', 'attribute45', 'attribute44', 'attribute43', 'attribute42', 'attribute41', 'attribute40', 'attribute49', 'attribute48', 'attribute54', 'attribute55', 'attribute56', 'attribute57', 'attribute50', 'attribute51', 'attribute52', 'attribute53', 'attribute58', 'attribute59', 'attribute69', 'attribute68', 'attribute61', 'attribute60', 'attribute63', 'attribute62', 'attribute65', 'attribute64', 'attribute67', 'attribute66', 'attribute105', 'attribute104', 'attribute101', 'attribute100', 'attribute103', 'attribute102', 'attribute76', 'attribute77', 'attribute74', 'attribute75', 'attribute72', 'attribute73', 'attribute70', 'attribute71'];4/0;[];False;
+41;email;1133/1133;5451;True/False;False;False;False;False;False;0;[];1/0;[];False;
+4;VanDeBunt_students;32/32;992;True;True/False;False;False;False;True;4;['spells', 'smoking', 'program', 'gender'];8/1;['type_relationship'];False;
+15;epinions;75879/131828;841372;True;False;False;False;False/True;False;0;[];1/1;['weight'];False;
+49;Cross_Parker-Manufacturing;77/77;4554;True;/True;False;True/False;False;False;3;['tenure', 'orglevel', 'location'];/2;['provides_information', 'aware_of_skill'];False;
+57;globalCities;101/101;1342;False;False;True;False/True;False;False;2;['sector', 'type'];1/1;['weight'];False;
+22;football-twitter;248/248;16962;True;True;False;False/True;False;False;4;['listmerged500', 'lists500', 'tweets500', 'community'];9/1;['weight'];False;
+51;Davis_southern_club_women;18/18;139;True/False;False;False;False/True;False;True/False;1;['name'];1/1;['weight'];False;
+54;bktec;0/34;1472;True;True;False;True;False;False;0;[];2/1;['weight'];False;
+94;BlogCatalog;88784/10312;333983;True/False;False;False;False;False;False;1;['group'];1/0;[];False;
+24;EIES;32/32;825;True;True/False;False;True/False;False;True;3;['discipline', 'number_of_citations', 'spells'];2/2;['number_of_messages_sent', 'relationship'];False;
+61;Student_government;11/11;41;True;True/False;False;False;False;False;1;['position'];2/0;[];False;
+63;youtube-groupmemberships;124325/124325;293360;True/False;False;True/False;False;False;False;2;['bipartite', 'name'];1/0;[];False;
+84;petster-friendships-hamster;1858/1858;12533;True/False;False;False;False;False;False;11;['favorite_food', 'coloring', 'name', 'gender', 'age', 'hometown', 'joined', 'favorite_toy', 'birthday', 'favorite_activity', 'species'];1/0;[];False;
+71;facebook-wosn-wall;63981/46952;274086;True;False;False;False/True;False;True/False;0;[];1/2;['timestamps', 'weight'];False;
+97;BuzzNet;/101168;4117545;False/True;/False;/False;False;False;/False;0;[];/0;[];False;
+26;LazegaLawyers;71/71;2223;True;True;False;False;False;False;8;['status', 'years_within_the_firm', 'law_scool', 'office', 'gender', 'age', 'practice', 'seniority'];3/0;[];False;
+21;rugby-twitter;854/854;164122;True;True;False;False/True;False;False;4;['listmerged500', 'lists500', 'tweets500', 'community'];9/1;['weight'];False;
+23;politicsie-twitter;348/348;52386;True;True;False;False/True;False;False;4;['listmerged500', 'lists500', 'tweets500', 'community'];9/1;['weight'];False;
+53;bkham;0/44;927;True;True;False;True;False;False;0;[];2/1;['weight'];False;
+20;olympics-twitter;464/464;47994;True;True;False;False/True;False;False;4;['listmerged500', 'lists500', 'tweets500', 'community'];9/1;['weight'];False;
+55;centrality_literature;0/129;613;True/False;False;False;False/True;False;False;3;['y', 'x', 'shape'];1/1;['weight'];False;
+19;wiki-Vote;7115/7115;103689;False/True;False;False;False;False;False;0;[];1/0;[];False;
+29;hypertext2009;110/113;2163;False;False;False;False/True;False;True;4;['spells', 'strength', 'degree', 'presence'];1/2;['weight', 'label'];False;
+52;bkfrat;0/58;5240;True;True;False;True;False;False;0;[];2/1;['weight'];False;
+58;Dining-table_partners;26/26;42;True/False;True/False;False;True;False;False;3;['y', 'x', 'shape'];2/1;['weight'];False;
+102;netscience;/1589;2742;False;/False;/False;False/True;False;/False;0;[];/1;['weight'];False;
+57;World_cities_and_Global_firms;101/101;1342;False;False;True;False/True;False;False;2;['sector', 'type'];1/1;['weight'];False;
+1;politicsuk-twitter;419/419;98796;False/True;False/True;False;False/True;False;False;4;['listmerged500', 'lists500', 'tweets500', 'community'];1/1;['weight'];False;
+40;cond-mat-2005;27519/40421;175692;False;False;False;True/False;False;False;0;[];1/1;['value'];False;
+43;netscience;1589/1589;2742;False;False;False;True/False;False;False;0;[];1/1;['value'];False;
+1;politicsuk-twitter;419/419;98796;False/True;False/True;False;False/True;False;False;4;['listmerged500', 'lists500', 'tweets500', 'community'];1/1;['weight'];False;
+33;jazz;198/198;2742;True/False;False;False;False;False;False;0;[];1/0;[];False;0
+62;SanJuanSur2;0/75;199;True;False;False;False;False;False;2;['status', 'prestige_leader'];2/1;['edge_type'];False;0
+145;wiring;/14;189;False/True;/True;/False;False/True;False;/False;0;[];/1;['weight'];False;0
+0;edit-frwikibooks;30997/30616;201727;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;linux;30837;230213/213954;True;False;False;False;False;False;0;;0;;False;0
+0;subelj_jdk;6434;150985/53892;True;True/False;False;False;False;False;0;;0;;False;0
+0;linux;30837;230213/213954;True;False;False;False;False;False;0;;0;;False;0
+0;edit-frwikinews;26546/26447;193618;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;edit-enwikibooks;167525/165675;1164576;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;lkml-reply;63399/27927;1096440;True;True;False;False;False;False;0;;1;timestamp;True;68207
+0;moreno_vdb;32;3062/710;True;False;False;False;True/False;False;0;;2;timestamp_weight;False;0
+0;subelj_jdk;6434;150985/53892;True;True/False;False;False;False;False;0;;0;;False;0
+0;linux;30837;230213/213954;True;False;False;False;False;False;0;;0;;False;0
+0;edit-dewiktionary;151982/151086;1229501;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;gottron-reuters;60234/58434;978446;False;True/False;True;False;False;False;1;type;0;;False;0
+0;edit-enwikinews;173772/170674;901416;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;subelj_jdk;6434;150985/53892;True;True/False;False;False;False;False;0;;0;;False;0
+0;ca-cit-HepPh;28093;4596803/3148447;False;False;False;False;False;False;0;;1;timestamp;False;0
+0;ca-cit-HepPh;28093;4596803/3148447;False;False;False;False;False;False;0;;1;timestamp;False;0
+0;advogato;6541/6551;51127/51332;True;False/True;False;True;False;False;0;;1;weight;True;3995
+0;wikiconflict;118100/116836;2917785/2027871;False;False;False;False/True;True;False;0;;2;timestamp_weight;False;0
+8;ego-Facebook-414;113/160;1852;False;False;False;False;False;False;20;['work_start_date_', 'work_end_date_', 'work_position__', 'education_concentration__', 'work_employer__', 'education_degree__', 'work_location__', 'birthday_', 'languages__', 'first_name_', 'hometown__', 'last_name_', 'education_year__', 'location__', 'locale_', 'education_type_', 'gender_', 'name_', 'circle', 'education_school__'];1/0;[];False;0
+0;dbpedia-recordlabel;186758/169272;233286/206381;False;False;True;False;False;False;1;type;0;;False;0
+0;edit-frwikinews;26546/26447;193618;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;citeseer;384413;1751463/1764929;True;False/True;False;False;False;False;0;;0;;True;7069
+0;wikiconflict;118100/116836;2917785/2027871;False;False;False;False/True;True;False;0;;2;timestamp_weight;False;0
+0;wikiconflict;118100/116836;2917785/2027871;False;False;False;False/True;True;False;0;;2;timestamp_weight;False;0
+67;dbpedia-recordlabel;169272/169272;206381;True/False;False;True/False;False;False;False;2;['bipartite', 'name'];1/0;[];False;0
+0;elec;7118;103675/107071;True;False/True;False;False/True;True;False;0;;2;timestamp_weight;True;58
+0;edit-enwikiquote;116363/114531;549210;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;facebook-wosn-links;63731;817035/817090;False;False;False;False;False;False;0;;1;timestamp;False;0
+0;edit-frwikinews;26546/26447;193618;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;dbpedia-recordlabel;186758/169272;233286/206381;False;False;True;False;False;False;1;type;0;;False;0
+0;stackexchange-stackoverflow;641876;1301942/1302040;False;False;True;False;False;False;1;type;1;timestamp;False;0
+0;ca-cit-HepPh;28093;4596803/3148447;False;False;False;False;False;False;0;;1;timestamp;False;0
+0;edit-enwikibooks;167525/165675;1164576;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;facebook-wosn-links;63731;817035/817090;False;False;False;False;False;False;0;;1;timestamp;False;0
+0;advogato;6541/6551;51127/51332;True;False/True;False;True;False;False;0;;1;weight;True;3995
+0;dbpedia-recordlabel;186758/169272;233286/206381;False;False;True;False;False;False;1;type;0;;False;0
+0;elec;7118;103675/107071;True;False/True;False;False/True;True;False;0;;2;timestamp_weight;True;58
+0;ca-cit-HepTh;22908;2673133/2444798;False;False;False;False;False;False;0;;1;timestamp;False;0
+0;link-dynamic-simplewiki;100312;1627472;True;False/True;False;False;False;False;0;;1;timestamp;True;3664
+0;arenas-pgp;10680;24316/24340;False;False/True;False;False;False;False;0;;0;;False;0
+8;ego-Facebook-414;113/160;1852;False;False;False;False;False;False;20;['work_start_date_', 'work_end_date_', 'work_position__', 'education_concentration__', 'work_employer__', 'education_degree__', 'work_location__', 'birthday_', 'languages__', 'first_name_', 'hometown__', 'last_name_', 'education_year__', 'location__', 'locale_', 'education_type_', 'gender_', 'name_', 'circle', 'education_school__'];1/0;[];False;0
+0;stackexchange-stackoverflow;641876;1301942/1302040;False;False;True;False;False;False;1;type;1;timestamp;False;0
+0;edit-enwikiquote;116363/114531;549210;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;gottron-excellent;276739;2941902;False;True/False;True;False;False;False;1;type;0;;False;0
+8;ego-Facebook-414;113/160;1852;False;False;False;False;False;False;20;['work_start_date_', 'work_end_date_', 'work_position__', 'education_concentration__', 'work_employer__', 'education_degree__', 'work_location__', 'birthday_', 'languages__', 'first_name_', 'hometown__', 'last_name_', 'education_year__', 'location__', 'locale_', 'education_type_', 'gender_', 'name_', 'circle', 'education_school__'];1/0;[];False;0
+0;edit-enwikibooks;167525/165675;1164576;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;edit-enwikiquote;116363/114531;549210;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;link-dynamic-simplewiki;100312;1627472;True;False/True;False;False;False;False;0;;1;timestamp;True;3664
+0;moreno_vdb;32;3062/710;True;False;False;False;True/False;False;0;;2;timestamp_weight;False;0
+0;zhishi-hudong-internallink;1984484;14869484;True;True/False;False;False;False;False;0;;0;;False;0
+0;gottron-reuters;60234/58434;978446;False;True/False;True;False;False;False;1;type;0;;False;0
+0;elec;7118;103675/107071;True;False/True;False;False/True;True;False;0;;2;timestamp_weight;True;58
+0;moreno_vdb;32;3062/710;True;False;False;False;True/False;False;0;;2;timestamp_weight;False;0
+0;linux;30837;230213/213954;True;False;False;False;False;False;0;;0;;False;0
+0;edit-frwikinews;26546/26447;193618;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;lkml-reply;63399/27927;1096440;True;True;False;False;False;False;0;;1;timestamp;True;68207
+0;edit-dewiktionary;151982/151086;1229501;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;subelj_jdk;6434;150985/53892;True;True/False;False;False;False;False;0;;0;;False;0
+0;ca-cit-HepTh;22908;2673133/2444798;False;False;False;False;False;False;0;;1;timestamp;False;0
+0;link-dynamic-simplewiki;100312;1627472;True;False/True;False;False;False;False;0;;1;timestamp;True;3664
+0;zhishi-hudong-internallink;1984484;14869484;True;True/False;False;False;False;False;0;;0;;False;0
+0;elec;7118;103675/107071;True;False/True;False;False/True;True;False;0;;2;timestamp_weight;True;58
+0;patentcite;3774768;16518947/16522438;True;False/True;False;False;False;False;0;;0;;True;1
+0;edit-enwikinews;173772/170674;901416;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;patentcite;3774768;16518947/16522438;True;False/True;False;False;False;False;0;;0;;True;1
+67;dbpedia-recordlabel;169272/169272;206381;True/False;False;True/False;False;False;False;2;['bipartite', 'name'];1/0;[];False;0
+0;patentcite;3774768;16518947/16522438;True;False/True;False;False;False;False;0;;0;;True;1
+0;arenas-pgp;10680;24316/24340;False;False/True;False;False;False;False;0;;0;;False;0
+0;ca-cit-HepTh;22908;2673133/2444798;False;False;False;False;False;False;0;;1;timestamp;False;0
+0;arenas-pgp;10680;24316/24340;False;False/True;False;False;False;False;0;;0;;False;0
+0;facebook-wosn-links;63731;817035/817090;False;False;False;False;False;False;0;;1;timestamp;False;0
+0;edit-dewiktionary;151982/151086;1229501;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;patentcite;3774768;16518947/16522438;True;False/True;False;False;False;False;0;;0;;True;1
+0;advogato;6541/6551;51127/51332;True;False/True;False;True;False;False;0;;1;weight;True;3995
+0;link-dynamic-simplewiki;100312;1627472;True;False/True;False;False;False;False;0;;1;timestamp;True;3664
+0;dblp-cite;12591;49743/49793;True;False/True;False;False;False;False;0;;0;;True;15
+67;dbpedia-recordlabel;169272/169272;206381;True/False;False;True/False;False;False;False;2;['bipartite', 'name'];1/0;[];False;0
+0;ca-cit-HepPh;28093;4596803/3148447;False;False;False;False;False;False;0;;1;timestamp;False;0
+0;moreno_vdb;32;3062/710;True;False;False;False;True/False;False;0;;2;timestamp_weight;False;0
+0;facebook-wosn-links;63731;817035/817090;False;False;False;False;False;False;0;;1;timestamp;False;0
+0;dbpedia-recordlabel;186758/169272;233286/206381;False;False;True;False;False;False;1;type;0;;False;0
+0;wikiconflict;118100/116836;2917785/2027871;False;False;False;False/True;True;False;0;;2;timestamp_weight;False;0
+0;edit-enwikiquote;116363/114531;549210;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;edit-frwikibooks;30997/30616;201727;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;zhishi-hudong-internallink;1984484;14869484;True;True/False;False;False;False;False;0;;0;;False;0
+0;stackexchange-stackoverflow;641876;1301942/1302040;False;False;True;False;False;False;1;type;1;timestamp;False;0
+0;zhishi-hudong-internallink;1984484;14869484;True;True/False;False;False;False;False;0;;0;;False;0
+0;zhishi-hudong-internallink;1984484;14869484;True;True/False;False;False;False;False;0;;0;;False;0
+0;dblp-cite;12591;49743/49793;True;False/True;False;False;False;False;0;;0;;True;15
+0;dbpedia-producer;187677/187721;207268/207319;False;False;True;False;False;False;1;type;0;;False;0
+0;edit-dewiktionary;151982/151086;1229501;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;stackexchange-stackoverflow;641876;1301942/1302040;False;False;True;False;False;False;1;type;1;timestamp;False;0
+0;dblp-cite;12591;49743/49793;True;False/True;False;False;False;False;0;;0;;True;15
+0;advogato;6541/6551;51127/51332;True;False/True;False;True;False;False;0;;1;weight;True;3995
+0;dbpedia-producer;187677/187721;207268/207319;False;False;True;False;False;False;1;type;0;;False;0
+0;lkml-reply;63399/27927;1096440;True;True;False;False;False;False;0;;1;timestamp;True;68207
+0;gottron-reuters;60234/58434;978446;False;True/False;True;False;False;False;1;type;0;;False;0
+0;citeseer;384413;1751463/1764929;True;False/True;False;False;False;False;0;;0;;True;7069
+67;dbpedia-recordlabel;169272/169272;206381;True/False;False;True/False;False;False;False;2;['bipartite', 'name'];1/0;[];False;0
+0;lkml-reply;63399/27927;1096440;True;True;False;False;False;False;0;;1;timestamp;True;68207
+0;subelj_jdk;6434;150985/53892;True;True/False;False;False;False;False;0;;0;;False;0
+0;edit-dewiktionary;151982/151086;1229501;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;gottron-excellent;276739;2941902;False;True/False;True;False;False;False;1;type;0;;False;0
+0;citeseer;384413;1751463/1764929;True;False/True;False;False;False;False;0;;0;;True;7069
+0;gottron-excellent;276739;2941902;False;True/False;True;False;False;False;1;type;0;;False;0
+0;dbpedia-producer;187677/187721;207268/207319;False;False;True;False;False;False;1;type;0;;False;0
+0;epinions-rating;876252;13668320;False;False;True;True;True/False;False;1;type;2;timestamp_weight;False;0
+0;epinions-rating;876252;13668320;False;False;True;True;True/False;False;1;type;2;timestamp_weight;False;0
+0;edit-enwikinews;173772/170674;901416;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;dblp-cite;12591;49743/49793;True;False/True;False;False;False;False;0;;0;;True;15
+0;dbpedia-producer;187677/187721;207268/207319;False;False;True;False;False;False;1;type;0;;False;0
+0;epinions-rating;876252;13668320;False;False;True;True;True/False;False;1;type;2;timestamp_weight;False;0
+0;gottron-excellent;276739;2941902;False;True/False;True;False;False;False;1;type;0;;False;0
+0;epinions-rating;876252;13668320;False;False;True;True;True/False;False;1;type;2;timestamp_weight;False;0
+0;citeseer;384413;1751463/1764929;True;False/True;False;False;False;False;0;;0;;True;7069
+8;ego-Facebook-414;113/160;1852;False;False;False;False;False;False;20;['work_start_date_', 'work_end_date_', 'work_position__', 'education_concentration__', 'work_employer__', 'education_degree__', 'work_location__', 'birthday_', 'languages__', 'first_name_', 'hometown__', 'last_name_', 'education_year__', 'location__', 'locale_', 'education_type_', 'gender_', 'name_', 'circle', 'education_school__'];1/0;[];False;0
+0;gottron-reuters;60234/58434;978446;False;True/False;True;False;False;False;1;type;0;;False;0
+0;edit-enwikinews;170674;901416;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;ca-cit-HepTh;22908;2444798;False;False;False;False;False;False;0;;1;timestamp;False;0
+0;arenas-pgp;10680;24340;False;True;False;False;False;False;0;;0;;False;0
+0;edit-enwikibooks;165675;1164576;False;True;True;False;False;False;1;type;1;timestamp;False;0
+0;lkml-reply;63399/27927;1096440;True;True;False;False;False;False;0;;1;timestamp;True;68207

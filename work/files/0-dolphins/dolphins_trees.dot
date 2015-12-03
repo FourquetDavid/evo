@@ -1,0 +1,310 @@
+digraph G {
+subgraph cluster_cluster_0 {
+label="Ind. #0 - Score Raw/Fit.: 0.4333/0.2368";
+0 [color=goldenrod2, style=filled, label="0.909569223452
+TargDegree"];
+}
+
+subgraph cluster_cluster_1 {
+label="Ind. #1 - Score Raw/Fit.: 0.4251/0.2354";
+1 [color=goldenrod2, style=filled, label="0.535787900761
+TargDegree"];
+}
+
+subgraph cluster_cluster_2 {
+label="Ind. #2 - Score Raw/Fit.: 0.3600/0.2245";
+2 [color=goldenrod2, style=filled, label="0.535787900761
+TargDegree"];
+}
+
+subgraph cluster_cluster_3 {
+label="Ind. #3 - Score Raw/Fit.: 0.3459/0.2222";
+3 [color=goldenrod2, style=filled, label="0.909569223452
+TargDegree"];
+}
+
+subgraph cluster_cluster_4 {
+label="Ind. #4 - Score Raw/Fit.: 0.3335/0.2201";
+4 [color=goldenrod2, style=filled, label=">"];
+5 [color=goldenrod2, style=filled, label="2.73611628285
+TargPagerank"];
+6 [color=goldenrod2, style=filled, label="3.74558340108
+TargBetweenness"];
+4 -> 5;
+4 -> 6;
+}
+
+subgraph cluster_cluster_5 {
+label="Ind. #5 - Score Raw/Fit.: 0.3335/0.2201";
+7 [color=goldenrod2, style=filled, label="m
+a
+x"];
+8 [color=goldenrod2, style=filled, label="o
+p
+p"];
+9 [color=goldenrod2, style=filled, label="m
+a
+x"];
+10 [color=goldenrod2, style=filled, label="4.34226388427
+TargBetweenness"];
+11 [color=goldenrod2, style=filled, label="7.73067495188
+NormalizedTargId"];
+12 [color=goldenrod2, style=filled, label="="];
+13 [color=goldenrod2, style=filled, label="3.98779747107
+RevDistance"];
+14 [color=goldenrod2, style=filled, label="2.98793058343
+OrigEccentricity"];
+15 [color=goldenrod2, style=filled, label="m
+i
+n"];
+16 [color=goldenrod2, style=filled, label="2.93841083439
+OrigPagerank"];
+17 [color=goldenrod2, style=filled, label="3.75836159782
+NormalizedRevDistance"];
+7 -> 8;
+8 -> 9;
+9 -> 10;
+9 -> 11;
+8 -> 12;
+12 -> 13;
+12 -> 14;
+7 -> 15;
+15 -> 16;
+15 -> 17;
+}
+
+subgraph cluster_cluster_6 {
+label="Ind. #6 - Score Raw/Fit.: 0.3186/0.2176";
+18 [color=goldenrod2, style=filled, label="i
+n
+v"];
+19 [color=goldenrod2, style=filled, label="12.0347608382
+Constant"];
+20 [color=goldenrod2, style=filled, label=N];
+21 [color=goldenrod2, style=filled, label=H];
+22 [color=goldenrod2, style=filled, label="0.0122744101963
+NormalizedRevDistance"];
+23 [color=goldenrod2, style=filled, label="12.5834015947
+TargClustering"];
+24 [color=goldenrod2, style=filled, label=T];
+25 [color=goldenrod2, style=filled, label="3.14408634622
+OrigDegree"];
+26 [color=goldenrod2, style=filled, label="1.765970747
+TargClustering"];
+18 -> 19;
+18 -> 20;
+20 -> 21;
+21 -> 22;
+21 -> 23;
+20 -> 24;
+24 -> 25;
+24 -> 26;
+}
+
+subgraph cluster_cluster_7 {
+label="Ind. #7 - Score Raw/Fit.: 0.3134/0.2167";
+27 [color=goldenrod2, style=filled, label="8.52887339823
+OrigDegree"];
+}
+
+subgraph cluster_cluster_8 {
+label="Ind. #8 - Score Raw/Fit.: 0.3063/0.2155";
+28 [color=goldenrod2, style=filled, label="5.52078514174
+TargPagerank"];
+}
+
+subgraph cluster_cluster_9 {
+label="Ind. #9 - Score Raw/Fit.: 0.3027/0.2149";
+29 [color=goldenrod2, style=filled, label="-"];
+30 [color=goldenrod2, style=filled, label=T];
+31 [color=goldenrod2, style=filled, label="i
+n
+v"];
+32 [color=goldenrod2, style=filled, label="6.41711637134
+OrigPagerank"];
+33 [color=goldenrod2, style=filled, label="0.853310486157
+TargId"];
+34 [color=goldenrod2, style=filled, label="+"];
+35 [color=goldenrod2, style=filled, label="2.91647185205
+NormalizedOrigId"];
+36 [color=goldenrod2, style=filled, label="6.2629029165
+OrigClustering"];
+37 [color=goldenrod2, style=filled, label="2.91647185205
+NormalizedOrigId"];
+29 -> 30;
+30 -> 31;
+31 -> 32;
+31 -> 33;
+30 -> 34;
+34 -> 35;
+34 -> 36;
+29 -> 37;
+}
+
+subgraph cluster_cluster_10 {
+label="Ind. #10 - Score Raw/Fit.: 0.3001/0.2145";
+38 [color=goldenrod2, style=filled, label="0.0922541241404
+TargPagerank"];
+}
+
+subgraph cluster_cluster_11 {
+label="Ind. #11 - Score Raw/Fit.: 0.2955/0.2137";
+39 [color=goldenrod2, style=filled, label="0.535787900761
+TargDegree"];
+}
+
+subgraph cluster_cluster_12 {
+label="Ind. #12 - Score Raw/Fit.: 0.2855/0.2121";
+40 [color=goldenrod2, style=filled, label="i
+n
+v"];
+41 [color=goldenrod2, style=filled, label="12.0347608382
+Constant"];
+42 [color=goldenrod2, style=filled, label=N];
+43 [color=goldenrod2, style=filled, label=H];
+44 [color=goldenrod2, style=filled, label="0.0122744101963
+NormalizedRevDistance"];
+45 [color=goldenrod2, style=filled, label="12.5834015947
+TargClustering"];
+46 [color=goldenrod2, style=filled, label=T];
+47 [color=goldenrod2, style=filled, label="0.223213051
+Reciprocity"];
+48 [color=goldenrod2, style=filled, label="4.0983180636
+Reciprocity"];
+40 -> 41;
+40 -> 42;
+42 -> 43;
+43 -> 44;
+43 -> 45;
+42 -> 46;
+46 -> 47;
+46 -> 48;
+}
+
+subgraph cluster_cluster_13 {
+label="Ind. #13 - Score Raw/Fit.: 0.2708/0.2096";
+49 [color=goldenrod2, style=filled, label="2.10135650218
+TargPagerank"];
+}
+
+subgraph cluster_cluster_14 {
+label="Ind. #14 - Score Raw/Fit.: 0.2684/0.2092";
+50 [color=goldenrod2, style=filled, label="2.10135650218
+TargPagerank"];
+}
+
+subgraph cluster_cluster_15 {
+label="Ind. #15 - Score Raw/Fit.: 0.2642/0.2085";
+51 [color=goldenrod2, style=filled, label="-"];
+52 [color=goldenrod2, style=filled, label="<"];
+53 [color=goldenrod2, style=filled, label="3.51480488286
+OrigBetweenness"];
+54 [color=goldenrod2, style=filled, label="*"];
+55 [color=goldenrod2, style=filled, label="0.717304631233
+TargClustering"];
+56 [color=goldenrod2, style=filled, label="2.83186503125
+NormalizedTargDegree"];
+57 [color=goldenrod2, style=filled, label="5.74141475777
+NormalizedDistance"];
+51 -> 52;
+52 -> 53;
+52 -> 54;
+54 -> 55;
+54 -> 56;
+51 -> 57;
+}
+
+subgraph cluster_cluster_16 {
+label="Ind. #16 - Score Raw/Fit.: 0.2638/0.2084";
+58 [color=goldenrod2, style=filled, label="2.10135650218
+TargPagerank"];
+}
+
+subgraph cluster_cluster_17 {
+label="Ind. #17 - Score Raw/Fit.: 0.2610/0.2080";
+59 [color=goldenrod2, style=filled, label="3.19186272689
+TargCloseness"];
+}
+
+subgraph cluster_cluster_18 {
+label="Ind. #18 - Score Raw/Fit.: 0.2543/0.2068";
+60 [color=goldenrod2, style=filled, label="2.02847254251
+TargId"];
+}
+
+subgraph cluster_cluster_19 {
+label="Ind. #19 - Score Raw/Fit.: 0.2469/0.2056";
+61 [color=goldenrod2, style=filled, label="l
+o
+g"];
+62 [color=goldenrod2, style=filled, label="2.76709522979
+NormalizedTargDegree"];
+63 [color=goldenrod2, style=filled, label="+"];
+64 [color=goldenrod2, style=filled, label="0.309770268486
+OrigId"];
+65 [color=goldenrod2, style=filled, label="5.06931320003
+OrigBetweenness"];
+61 -> 62;
+61 -> 63;
+63 -> 64;
+63 -> 65;
+}
+
+subgraph cluster_cluster_20 {
+label="Ind. #20 - Score Raw/Fit.: 0.2423/0.2048";
+66 [color=goldenrod2, style=filled, label="6.76415194561
+SameCommunity"];
+}
+
+subgraph cluster_cluster_21 {
+label="Ind. #21 - Score Raw/Fit.: 0.2419/0.2048";
+67 [color=goldenrod2, style=filled, label="2.74761261175
+OrigCoreN"];
+}
+
+subgraph cluster_cluster_22 {
+label="Ind. #22 - Score Raw/Fit.: 0.2411/0.2046";
+68 [color=goldenrod2, style=filled, label="="];
+69 [color=goldenrod2, style=filled, label="7.46086317618
+TargEccentricity"];
+70 [color=goldenrod2, style=filled, label="<"];
+71 [color=goldenrod2, style=filled, label=">"];
+72 [color=goldenrod2, style=filled, label="4.37904240998
+TargDegree"];
+73 [color=goldenrod2, style=filled, label="1.25400838311
+NormalizedOrigDegree"];
+74 [color=goldenrod2, style=filled, label=">"];
+75 [color=goldenrod2, style=filled, label="0.519533990753
+OrigClustering"];
+76 [color=goldenrod2, style=filled, label="4.61338775255
+TargClustering"];
+68 -> 69;
+68 -> 70;
+70 -> 71;
+71 -> 72;
+71 -> 73;
+70 -> 74;
+74 -> 75;
+74 -> 76;
+}
+
+subgraph cluster_cluster_23 {
+label="Ind. #23 - Score Raw/Fit.: 0.2325/0.2032";
+77 [color=goldenrod2, style=filled, label="m
+i
+n"];
+78 [color=goldenrod2, style=filled, label="4.2663442711
+Distance"];
+79 [color=goldenrod2, style=filled, label="9.51850847181
+NormalizedOrigId"];
+77 -> 78;
+77 -> 79;
+}
+
+subgraph cluster_cluster_24 {
+label="Ind. #24 - Score Raw/Fit.: 0.2166/0.2005";
+80 [color=goldenrod2, style=filled, label="11.7860994971
+Random"];
+}
+
+}

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?><gexf version="1.1" xmlns="http://www.gexf.net/1.1draft" xmlns:viz="http://www.gexf.net/1.1draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema-instance">
+  <graph defaultedgetype="directed" mode="static">
+    <nodes>
+      <node id="Boniface" label="Boniface" />
+      <node id="Ambrose" label="Ambrose" />
+      <node id="John" label="John" />
+      <node id="Hugh" label="Hugh" />
+      <node id="Albert" label="Albert" />
+      <node id="Louis" label="Louis" />
+      <node id="Berthold" label="Berthold" />
+      <node id="Peter" label="Peter" />
+      <node id="Bonaventure" label="Bonaventure" />
+      <node id="Mark" label="Mark" />
+      <node id="Elias" label="Elias" />
+      <node id="Winfrid" label="Winfrid" />
+      <node id="Basil" label="Basil" />
+      <node id="Ramuald" label="Ramuald" />
+      <node id="Gregory" label="Gregory" />
+      <node id="Bosco" label="Bosco" />
+      <node id="Amand" label="Amand" />
+      <node id="Victor" label="Victor" />
+    </nodes>
+    <edges>
+      <edge id="0" source="Boniface" target="Basil" weight="-1" />
+      <edge id="1" source="Boniface" target="Bosco" weight="1" />
+      <edge id="2" source="Ambrose" target="Basil" weight="1" />
+      <edge id="3" source="John" target="Gregory" weight="1" />
+      <edge id="4" source="John" target="Berthold" weight="-1" />
+      <edge id="5" source="Hugh" target="Bosco" weight="1" />
+      <edge id="6" source="Hugh" target="Winfrid" weight="-1" />
+      <edge id="7" source="Albert" target="Bonaventure" weight="-1" />
+      <edge id="8" source="Albert" target="Elias" weight="1" />
+      <edge id="9" source="Louis" target="John" weight="1" />
+      <edge id="10" source="Berthold" target="Basil" weight="-1" />
+      <edge id="11" source="Berthold" target="Bosco" weight="1" />
+      <edge id="12" source="Peter" target="Basil" weight="1" />
+      <edge id="13" source="Bonaventure" target="Basil" weight="1" />
+      <edge id="14" source="Bonaventure" target="Gregory" weight="-1" />
+      <edge id="15" source="Mark" target="Basil" weight="1" />
+      <edge id="16" source="Mark" target="Bosco" weight="-1" />
+      <edge id="17" source="Elias" target="Albert" weight="1" />
+      <edge id="18" source="Elias" target="Mark" weight="-1" />
+      <edge id="19" source="Winfrid" target="Bosco" weight="-1" />
+      <edge id="20" source="Winfrid" target="Elias" weight="1" />
+      <edge id="21" source="Basil" target="Bosco" weight="-1" />
+      <edge id="22" source="Basil" target="Peter" weight="1" />
+      <edge id="23" source="Ramuald" target="Bosco" weight="-1" />
+      <edge id="24" source="Ramuald" target="Mark" weight="1" />
+      <edge id="25" source="Gregory" target="Basil" weight="-1" />
+      <edge id="26" source="Gregory" target="John" weight="1" />
+      <edge id="27" source="Bosco" target="Basil" weight="-1" />
+      <edge id="28" source="Bosco" target="John" weight="1" />
+      <edge id="29" source="Amand" target="Basil" weight="-1" />
+      <edge id="30" source="Amand" target="John" weight="1" />
+      <edge id="31" source="Victor" target="Gregory" weight="-1" />
+      <edge id="32" source="Victor" target="Mark" weight="1" />
+    </edges>
+  </graph>
+</gexf>
