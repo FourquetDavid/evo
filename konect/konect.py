@@ -94,7 +94,8 @@ if __name__ == '__main__':
             bipartite =  network[3][1][0].get("alt").startswith("Bipartite")
             multiple = network[4][1][0].get("alt").startswith("Multiple")
             weighted = " weighted " in network[4][1][0].get("alt") or "Signed" in network[4][1][0].get("alt") or "rating" in network[4][1][0].get("alt")
-            
+            category = network[2][0].text
+            print category
             try : 
                 loop_info = False
                 loop_info = network[5][0][0][0]  is not None
@@ -113,7 +114,7 @@ if __name__ == '__main__':
             if nodes_info < 1000 :
                     print number
                     number+=1
-            if  not "0-"+name in os.listdir("files") :
+            if  not "0-"+name in os.listdir("../work/files") :
                 print name,"| directed :",directed,"| bipartite :",bipartite,bip1,bip2,"| multiple :",multiple,"| weighted :",weighted,"| loop :",loop_info,"| time :",time_info 
                 if nodes_info < 10000 :
                     """"DOWNLOAD"""""

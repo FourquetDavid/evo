@@ -234,24 +234,20 @@ def writeDotGraph(tree, graph, startNode=0):
     node_stack = []
     nodes_dict = {}
     tmp = None
-    import __main__ as main_module
-
-    for i in xrange(len(tree.nodes_list)):
+    def add_node(node,count):
         newnode = pydot.Node(str(count), style="filled")
-        count += 1
-
         newnode.set_color("goldenrod2")
-
-        data = '\n'.join(map(str, tree.nodes_list[i].getData()))
+        data = '\n'.join(map(str, node.getData()))
         newnode.set_label(data)
-
-        nodes_dict.update({tree.nodes_list[i]: newnode})
+        nodes_dict.update({node: newnode})
         graph.add_node(newnode)
+        return count +1
+
 
     node_stack.append(tree.getRoot())
     while len(node_stack) > 0:
         tmp = node_stack.pop()
-
+        count =add_node(tmp,count)
         parent = tmp.getParent()
         if parent is not None:
             parent_node = nodes_dict[parent]
@@ -259,8 +255,10 @@ def writeDotGraph(tree, graph, startNode=0):
 
             newedge = pydot.Edge(parent_node, child_node)
             graph.add_edge(newedge)
-
-        node_stack.extend(tmp.getChilds()[:])
+        if tmp.getData() in ["exp", "log", "abs", "inv", "opp", "H", "T", "N"]:
+            node_stack.append(tmp.getChild(0))
+        if tmp.getData() in ["+", "-", "*", "/", "min", "max", ">", "<", "="]:
+            node_stack.extend([tmp.getChild(1),tmp.getChild(0)])
 
     return count
 

@@ -107,7 +107,7 @@ class Undirected_UnweightedGWU(gwu.GraphWithUpdate, nx.Graph):
         '''
         return self.TargId() / self.number_of_nodes()
 
-    # @profile
+    #@profile
     def OrigPagerank(self):
         ''' returns a 2d array containing the pagerank of the origin node for all edges
 
@@ -120,7 +120,7 @@ class Undirected_UnweightedGWU(gwu.GraphWithUpdate, nx.Graph):
         except :
             return self.Orig(np.ones(self.number_of_nodes(),dtype=float)/self.number_of_nodes())
 
-    # @profile
+    #@profile
     def TargPagerank(self):
         ''' returns a 2d array containing the pagerank of the target node for all edges
 
@@ -136,7 +136,7 @@ class Undirected_UnweightedGWU(gwu.GraphWithUpdate, nx.Graph):
 
 
 
-    # @profile
+    #@profile
     def OrigCoreN(self):
         ''' returns a 2d array containing the pagerank of the origin node for all edges
 
@@ -146,7 +146,7 @@ class Undirected_UnweightedGWU(gwu.GraphWithUpdate, nx.Graph):
         '''
         return self.Orig(nx.core_number(self))
 
-    # @profile
+    #@profile
     def TargCoreN(self):
         """ returns a 2d array containing the pagerank of the target node for all edges
 
@@ -157,7 +157,7 @@ class Undirected_UnweightedGWU(gwu.GraphWithUpdate, nx.Graph):
         """
         return self.Targ(nx.core_number(self))
 
-    # @profile
+    #@profile
     def OrigCloseness(self):
         """ returns a 2d array containing the closeness of the origin node for all edges
 
@@ -167,7 +167,7 @@ class Undirected_UnweightedGWU(gwu.GraphWithUpdate, nx.Graph):
         """
         return self.Orig(nx.closeness_centrality(self))
 
-    # @profile
+    #@profile
     def TargCloseness(self):
         ''' returns a 2d array containing the closeness of the target node for all edges
 
@@ -178,7 +178,7 @@ class Undirected_UnweightedGWU(gwu.GraphWithUpdate, nx.Graph):
         '''
         return self.Targ(nx.closeness_centrality(self))
 
-    # @profile
+    #@profile
     def OrigBetweenness(self):
         ''' returns a 2d array containing the betweenness of the origin node for all edges
 
@@ -191,7 +191,7 @@ class Undirected_UnweightedGWU(gwu.GraphWithUpdate, nx.Graph):
         return self.Orig(nx.betweenness_centrality(self))
         '''
 
-    # @profile
+    #@profile
     def TargBetweenness(self):
         ''' returns a 2d array containing the betweenness of the target node for all edges
 
@@ -205,7 +205,7 @@ class Undirected_UnweightedGWU(gwu.GraphWithUpdate, nx.Graph):
         return self.Targ(nx.betweenness_centrality(self))
         '''
 
-    # @profile
+    #@profile
     def OrigClustering(self):
         ''' returns a 2d array containing the clustering of the origin node for all edges
 
@@ -215,7 +215,7 @@ class Undirected_UnweightedGWU(gwu.GraphWithUpdate, nx.Graph):
         '''
         return self.Orig(nx.clustering(self))
 
-    # @profile
+    #@profile
     def TargClustering(self):
         ''' returns a 2d array containing the clustering of the target node for all edges
 
@@ -226,7 +226,7 @@ class Undirected_UnweightedGWU(gwu.GraphWithUpdate, nx.Graph):
         '''
         return self.Targ(nx.clustering(self))
 
-    # @profile
+    #@profile
     def OrigEccentricity(self):
         ''' returns a 2d array containing the eccentricity of the origin node for all edges
         '''
@@ -241,7 +241,7 @@ class Undirected_UnweightedGWU(gwu.GraphWithUpdate, nx.Graph):
             '''
         return self.Orig(eccentricity)
 
-    # @profile
+    #@profile
     def TargEccentricity(self):
         ''' returns a 2d array containing the eccentricity of the target node for all edges
         '''
@@ -257,7 +257,7 @@ class Undirected_UnweightedGWU(gwu.GraphWithUpdate, nx.Graph):
         '''
         return self.Targ(eccentricity)
 
-    # @profile
+    #@profile
     def SameCommunity(self):
         ''' returns a 2d array containing 1 when both nodes are in the same community'''
         partition = com.best_partition(self)
@@ -286,6 +286,16 @@ class Undirected_UnweightedGWU(gwu.GraphWithUpdate, nx.Graph):
         return probas
         '''
         return self.get_shortest_path_matrix()
+    #@profile
+    def CommonNeighbors(self):
+        ''' returns a 2d array containing the number of common neighbours '''
+        common = np.linalg.matrix_power(nx.to_numpy_matrix(self,dtype=float),2)
+        return common
+    #@profile
+    def Loop(self):
+        ''' returns a 2d array containing 1 if nodes share a common neighbour '''
+        loop = np.sign(np.linalg.matrix_power(nx.to_numpy_matrix(self,dtype=float),2))
+        return loop
 
     def RevDistance(self):
         ''' returns a 2d array containing the distance = shortest path length, takes weights into account'''
@@ -301,21 +311,6 @@ class Undirected_UnweightedGWU(gwu.GraphWithUpdate, nx.Graph):
         '''
         return np.transpose(self.get_shortest_path_matrix())
 
-    def TriadicClosure(self):
-        '''returns a 2d array where a_i_j = 1 when i and j are connected to any same other node
-        '''
-        '''
-        sp = self.get_shortest_path_dict()
-        probas = np.zeros((self.number_of_nodes(), self.number_of_nodes()),dtype=float)
-
-        for node1,row in sp.iteritems():
-            for node2, length in row.iteritems():
-                if length == 2 :
-                    probas[node1,node2] = 1
-        return probas
-        '''
-        print self.get_shortest_path_matrix==2
-        return (self.get_shortest_path_matrix==2).astype(float)
 
     def Reciprocity(self):
         '''returns a 2d array where a_i_j =1 if there is an edge from j to i'''

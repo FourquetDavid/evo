@@ -30,11 +30,11 @@ def main():
     is_directed = arguments[2]
     network_number = arguments[3]
     data_path = arguments[4] #data_path = "../work/files/" + network_number + "-" + network['name'] + "/" + network['name']
-    results_path = arguments[5] #results_path = data_path+"_results.xml"
-    stats_path = arguments[6] #stats_path = data_path+'_stats.txt'
-    dot_path = arguments[7] #dot_path = data_path+'_trees.jpeg'
-    nb_generations = arguments[8]
-    freq_stats = arguments[9]
+    results_path = data_path+"_results.xml"
+    stats_path = data_path+'_stats.txt'
+    dot_path = data_path+'_trees.jpeg'
+    nb_generations = arguments[5]
+    freq_stats = arguments[6]
 
 
     #evaluation_method = "communities_degrees_distances_clustering_importance"

@@ -95,7 +95,7 @@ def grow_simple_network(graph,decision_tree,number_of_nodes, number_of_edges):
 '''
 
 
-def grow_network_with_constants(decision_tree, number_of_nodes, number_of_steps, graph=None):
+def grow_network_with_constants(decision_tree, number_of_nodes, number_of_edges, graph=None):
     '''takes a tree of decision and returns the graph that grows according to those rules'''
     '''graph can be (un)directed/(un)weighted'''
     network_type = decision_tree.getParam('network_type')
@@ -106,23 +106,39 @@ def grow_network_with_constants(decision_tree, number_of_nodes, number_of_steps,
     for i in range(number_of_nodes):
         graph.add_node(i + number_of_nodes_init)
     # adds one edge according to its probability
-    for _ in range(number_of_steps):
+    number_of_steps =1
+    old_probas = None
+    while (graph.number_of_edges() < number_of_edges):
         # each edge has a probability that is the result of the tree
         probas = calc_with_constants(decision_tree.getRoot(), graph)
-        # we remove unnecessary edges : self loops, negative proba
-        # we choose one among remaining ones
+        #if probas stay near from last step, we dobble the number of new edges created
+        if near(probas,old_probas) :
+            number_of_steps *=2
+        else :
+            number_of_steps = max(1,number_of_steps/2)
+            old_probas = probas
+        for _ in range(number_of_steps) :
+            # we remove unnecessary edges : self loops, negative proba
+            # we choose one among remaining ones
 
-        edge, weight_value = choose_edge(probas, graph)
+            edge, weight_value = choose_edge(probas, graph)
 
-        if edge is None:  # this can happen if every edge has a -infinity probability thanks to log or / or - exp...
-            break
-        if graph.isWeighted():
-            graph.add_edge(*edge, weight=weight_value)
-        else:
-            graph.add_edge(*edge)
+            if edge is None:  # this can happen if every edge has a -infinity probability thanks to log or / or - exp...
+                break
+            if graph.isWeighted():
+                graph.add_edge(*edge, weight=weight_value)
+            else:
+                graph.add_edge(*edge)
 
+    print graph.number_of_nodes(),graph.number_of_edges()
     return graph
 
+def near(probas,old_probas):
+    if old_probas is None: return False
+    print np.absolute(probas-old_probas)
+    print np.nanmax(np.absolute(probas-old_probas))
+    print (np.max(np.absolute(probas-old_probas)) < np.max(probas)/10)
+    if (np.max(np.absolute(probas-old_probas)) < np.max(probas)/10) : return True
 
 def grow_network_with_constants_multi_step(decision_tree, number_of_nodes, number_of_steps, graph=None):
     '''takes a tree of decision and returns the graph that grows according to those rules'''
@@ -367,84 +383,6 @@ def compute_leaf(graph, variable):
     """
     return getattr(graph, variable)()
 
-
-'''
-    return {
-                       #local variables
-                       "OrigId" : graph.OrigId,
-                       "TargId" : graph.TargId,
-                       "OrigInDegree" : graph.OrigInDegree,
-                       "OrigOutDegree" : graph.OrigOutDegree,
-                       "TargInDegree" : graph.TargInDegree,
-                       "TargOutDegree" : graph.TargOutDegree,
-                       "OrigInStrength" : graph.OrigInStrength,
-                       "OrigOutStrength" : graph.OrigOutStrength,
-                       "TargInStrength" : graph.TargInStrength,
-                       "TargOutStrength" : graph.TargOutStrength,
-                       "DirectDistance" : graph.DirectDistance,
-                       "ReversedDistance" : graph.ReversedDistance,
-                       
-                       #undirected local variables
-                       "OrigDegree" : graph.OrigDegree,
-                       "TargDegree" : graph.TargDegree,
-                       "OrigStrength" : graph.OrigStrength,
-                       "TargStrength" : graph.TargStrength,
-                       "Distance" : graph.Distance,
-                       
-                       #global variables
-                       "NumberOfNodes" : graph.NumberOfNodes,
-                       "NumberOfEdges" : graph.NumberOfEdges,
-                       "MaxInDegree" : graph.MaxInDegree,
-                       "MaxOutDegree" : graph.MaxOutDegree,
-                       "MaxInStrength" : graph.MaxInStrength,
-                       "MaxOutStrength" : graph.MaxOutStrength,
-                       "MaxWeight" : graph.MaxWeight,
-                       "MaxDistance" : graph.MaxDistance,
-                       "TotalDistance" : graph.TotalDistance,
-                       "TotalWeight" : graph.TotalWeight,
-                       "Constant" : graph.Constant,
-                       "Random" : graph.Random,
-                       
-                       #undirected global variables
-                       "MaxDegree" : graph.MaxDegree,
-                       "MaxStrength" : graph.MaxStrength,
-                       
-                       #normalized local variables
-                       "NormalizedOrigId" : graph.NormalizedOrigId,
-                       "NormalizedTargId" : graph.NormalizedTargId,
-                       "NormalizedOrigInDegree" : graph.NormalizedOrigInDegree,
-                       "NormalizedOrigOutDegree" : graph.NormalizedOrigOutDegree,
-                       "NormalizedTargInDegree" : graph.NormalizedTargInDegree,
-                       "NormalizedTargOutDegree" : graph.NormalizedTargOutDegree,
-                       "NormalizedOrigInStrength" : graph.NormalizedOrigInStrength,
-                       "NormalizedOrigOutStrength" : graph.NormalizedOrigOutStrength,
-                       "NormalizedTargInStrength" : graph.NormalizedTargInStrength,
-                       "NormalizedTargOutStrength" : graph.NormalizedTargOutStrength,
-                       "NormalizedDirectDistance" : graph.NormalizedDirectDistance,
-                       "NormalizedReversedDistance" : graph.NormalizedReversedDistance,
-                       
-                       #undirected normalized local variables
-                       "NormalizedOrigDegree" : graph.NormalizedOrigDegree,
-                       "NormalizedTargDegree" : graph.NormalizedTargDegree,
-                       "NormalizedOrigStrength" : graph.NormalizedOrigStrength,
-                       "NormalizedTargStrength" : graph.NormalizedTargStrength,
-                       "NormalizedDistance" : graph.NormalizedDistance,
-                       
-                       #averaged global variables
-                       "AverageInDegree" : graph.AverageInDegree,
-                       "AverageOutDegree" : graph.AverageOutDegree,
-                       "AverageInStrength" : graph.AverageInStrength,
-                       "AverageOutStrength" : graph.AverageOutStrength,
-                       "AverageWeight" : graph.AverageWeight,
-                       "AverageDistance" : graph.AverageDistance,
-                       
-                       #undirected averaged global variables
-                       "AverageDegree" : graph.AverageDegree,
-                       "AverageStrength" : graph.AverageStrength,
-                       
-                       
-                       }[variable]()
-                       '''
 
 
 def div(a, b):

@@ -23,7 +23,7 @@ def get_goal(evaluation_method):
     if evaluation_method == "2distributions":
         return "minimize"
 
-    return "maximize"
+    return "minimize"
     # raise Exception("no evaluation_method")
 
 
@@ -76,7 +76,7 @@ def get_alleles(evaluation_method, network_type):
                      "OrigClustering", "TargClustering", "OrigCoreN", "TargCoreN",
                      "OrigEccentricity","TargEccentricity",
                      "Distance", "NormalizedDistance","RevDistance","NormalizedRevDistance",
-                     "SameCommunity","Reciprocity",#"TriadicClosure",
+                     "SameCommunity","Loop","CommonNeighbors",
                      "NumberOfEdges", "Constant", "Random"
                      ]]
         if network_type == "directed_unweighted" :
@@ -89,7 +89,7 @@ def get_alleles(evaluation_method, network_type):
                      "OrigClustering", "TargClustering", "OrigCoreN", "TargCoreN",
                      "OrigEccentricity","TargEccentricity",
                      "Distance", "NormalizedDistance","RevDistance","NormalizedRevDistance",
-                     "SameCommunity","Reciprocity",  #"TriadicClosure",
+                     "SameCommunity","Reciprocity",  "FeedForwardLoop","FeedBackLoop","SharedConsequence","SharedCause"
                      "NumberOfEdges", "Constant", "Random"
                      ]]
 

@@ -1,2 +1,10 @@
 <results>
-  <estrada_score><eplus score="0.0002743952838"/><eplus score="0.0"/><classe score="1"/></estrada_score></results>
+  <gen>
+    <classe_gen classe="2"/>
+  </gen>
+  <estrada_score>
+    <eplus score="0.0002743952838"/>
+    <eminus score="0.0"/>
+    <classe score="1"/>
+  </estrada_score>
+<category type="Animal"/></results>

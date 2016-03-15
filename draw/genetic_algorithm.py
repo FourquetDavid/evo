@@ -310,7 +310,7 @@ def eval_func(chromosome):
                             evaluation_method=chromosome.getParam("evaluation_method"),
                             network_type=chromosome.getParam("network_type"),
                             name=chromosome.getParam("name"))
-    return score['proximity_aggregated']
+    return score['max_distance']
 
 
 def eval_func_dynamic(chromosome):

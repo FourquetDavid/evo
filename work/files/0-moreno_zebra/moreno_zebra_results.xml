@@ -1,2 +1,31 @@
 <results>
-  <estrada_score><eplus score="7.11409334378e-05"/><eplus score="inf"/><classe score="2"/></estrada_score></results>
+  <motifs>
+    <motif number="862" milo_score="-0.143986938621"/>
+    <motif number="13260" milo_score="-0.361898148432"/>
+    <motif number="13278" milo_score="-0.149116102678"/>
+    <motif number="972" milo_score="-0.0429139399798"/>
+    <motif number="14" milo_score="-0.241773918713"/>
+    <motif number="46" milo_score="0.241585495283"/>
+    <motif number="396" milo_score="-0.279437910345"/>
+    <motif number="238" milo_score="0.0984390086145"/>
+    <motif number="414" milo_score="-0.00161328898247"/>
+    <motif number="4382" milo_score="-0.414376248082"/>
+    <motif number="31710" milo_score="0.243627168261"/>
+    <motif number="78" milo_score="-0.231541502404"/>
+    <motif number="406" milo_score="-0.45092290754"/>
+    <motif number="4958" milo_score="-0.212264860508"/>
+    <motif number="2202" milo_score="-0.000486326656301"/>
+    <motif number="4698" milo_score="-0.282416010597"/>
+    <motif number="286" milo_score="-0.082483262893"/>
+    <classe_milo classe="7"/>
+  </motifs>
+  <gen>
+    <classe_gen classe="1"/>
+  </gen>
+  <estrada_score>
+    <eplus score="7.11409334378e-05"/>
+    <eminus score="inf"/>
+    <classe score="2"/>
+  </estrada_score>
+  <category type="Animal"/>
+</results>

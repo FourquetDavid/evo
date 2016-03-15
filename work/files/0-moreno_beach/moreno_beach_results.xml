@@ -1,2 +1,36 @@
 <results>
-  <estrada_score><eplus score="7.09152593745e-08"/><eplus score="0.000116482237305"/><classe score="1"/></estrada_score></results>
+  <motifs>
+    <motif number="2184" milo_score="0.336828692383"/>
+    <motif number="862" milo_score="0.0222056951875"/>
+    <motif number="396" milo_score="0.124295293921"/>
+    <motif number="14" milo_score="0.0932557244378"/>
+    <motif number="4382" milo_score="-0.113195828375"/>
+    <motif number="406" milo_score="0.0263246648291"/>
+    <motif number="2202" milo_score="0.21417782186"/>
+    <motif number="414" milo_score="0.221442003276"/>
+    <motif number="36" milo_score="0.471509081867"/>
+    <motif number="990" milo_score="0.127803829644"/>
+    <motif number="46" milo_score="0.352569392503"/>
+    <motif number="31710" milo_score="0.137059900204"/>
+    <motif number="4958" milo_score="-0.0135855514607"/>
+    <motif number="972" milo_score="-0.185204136423"/>
+    <motif number="13260" milo_score="-0.271861824531"/>
+    <motif number="78" milo_score="-0.0587373822869"/>
+    <motif number="2462" milo_score="0.200119250024"/>
+    <motif number="4698" milo_score="-0.0681812963332"/>
+    <motif number="286" milo_score="-0.110401960964"/>
+    <motif number="13278" milo_score="-0.0158014047963"/>
+    <motif number="3038" milo_score="0.447994261146"/>
+    <motif number="238" milo_score="0.0454925194706"/>
+    <classe_milo classe="7"/>
+  </motifs>
+  <gen>
+    <classe_gen classe="2"/>
+  </gen>
+  <estrada_score>
+    <eplus score="7.09152593745e-08"/>
+    <eminus score="0.000116482237305"/>
+    <classe score="1"/>
+  </estrada_score>
+  <category type="HumanContact"/>
+</results>

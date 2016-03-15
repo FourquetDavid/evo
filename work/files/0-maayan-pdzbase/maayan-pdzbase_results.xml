@@ -1,3 +1,10 @@
 <results>
-  <motifs/>
-</results>
+  <gen>
+    <classe_gen classe="4"/>
+  </gen>
+  <estrada_score>
+    <eplus score="2.44469338723"/>
+    <eminus score="18.1668954125"/>
+    <classe score="4"/>
+  </estrada_score>
+<category type="Metabolic"/></results>

@@ -12,5 +12,10 @@
     <motif number="102" milo_score="-0.00147346040297"/>
     <motif number="14" milo_score="-0.101715342703"/>
     <motif number="78" milo_score="-0.212974305373"/>
+    <classe_milo classe="0"/>
   </motifs>
+  <gen>
+    <classe_gen classe="4"/>
+  </gen>
+  <category type="Trophic"/>
 </results>

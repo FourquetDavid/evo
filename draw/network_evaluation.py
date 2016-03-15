@@ -1,8 +1,7 @@
 """
 Created on 15 nov. 2012
 
-@author: David
-inspired by Telmo Menezes's work : telmomenezes.com
+@author: David Fourquet
 """
 import itertools as it
 import math
@@ -23,9 +22,161 @@ contains two main function :
                 methods of evaluation implemented : degree_distribution
 """
 
-number_of_elements_by_array = 10.
+number_of_elements_by_array = 10
 extension = ".gexf"
-'''           
+
+
+def get_datas_from_real_network(data_path, results_path, name=None, dynamic=None, evaluation_method=""):
+    """takes a relative path to directory containing network files and store relevant infos for future studies
+    """
+
+    if not os.path.isfile(results_path):
+        os.makedirs(os.path.dirname(results_path))
+        results = xml.Element('results')
+        tree = xml.ElementTree(results)
+    else:
+        parser = xml.XMLParser(remove_blank_text=True)
+        tree = xml.parse(results_path, parser)
+        results = tree.getroot()
+        try:
+            results.remove(results.find("mesures"))
+        except TypeError:
+            pass
+
+    if results.find("mesures") is None:
+        graph = read_typed_file(data_path + extension)
+        static_network = xml.SubElement(results, "mesures")
+        xml.SubElement(static_network, "name", value=name)
+        set_evaluation_datas(graph, static_network, evaluation_method=evaluation_method)
+        print(xml.tostring(results, pretty_print=True))
+        f = open(results_path, 'w')
+        tree.write(f, pretty_print=True)
+        f.close()
+
+
+def eval_network(network, results_path, number="", **kwargs):
+    eval_methods = kwargs.get("evaluation_method")
+    dynamic_network = xml.parse(results_path).getroot()
+    graph_xml = dynamic_network.find("mesures" + str(number))
+    dictionnary_distance = {}
+
+    def add(mesure, a, b): dictionnary_distance[mesure] = distance(a, b)
+
+    for mesure in eval_methods.split('_'):
+        value_test = d_method[mesure](network)
+        value_goal = eval(graph_xml.find(mesure).get('value'))
+        add(mesure, value_test, value_goal)
+    dictionnary_distance['max_distance'] = max(dictionnary_distance.values())
+    return dictionnary_distance
+
+    '''
+    Function that help evaluating network
+    '''
+
+
+def hist(value, bins):
+    hist = np.histogram(value, bins=bins)[0]
+    hist = hist / float(sum(hist))
+    return list(hist)
+
+
+def get_communities(network):
+    '''
+    take a network and returns a vector containing sorted proportions of each community of the network
+    Louvain algorithm is used to detect communities
+    '''
+
+    communities = community.best_partition(nx.Graph(network)).values()
+    communities_hist = np.bincount(communities)
+    communities_distribution = communities_hist / float(len(communities))
+    communities_sorted = sorted(communities_distribution, reverse=True)
+    return communities_sorted
+
+
+def get_hist_data(data):
+    maximum = max(1, max(data))
+    return hist(data, maximum)
+
+
+def get_degrees(network): return get_hist_data(network.degree().values())
+
+
+def get_indegrees(network): return get_hist_data(network.indegree().values())
+
+
+def get_outdegrees(network): return get_hist_data(network.outdegree().values())
+
+
+def get_distances(network): return get_hist_data(list(it.chain.from_iterable(
+    [dict_of_length.values() for dict_of_length
+     in nx.shortest_path_length(network).values()])))
+
+
+def get_clustering(network):
+    return hist(nx.clustering(network).values(), number_of_elements_by_array)
+
+
+def get_importance(network):
+    return hist(nx.eigenvector_centrality_numpy(network).values(), number_of_elements_by_array)
+
+
+d_method = {
+    'nodes': nx.number_of_nodes,
+    'density': nx.density,
+    'communities': get_communities,
+    'indegrees': get_indegrees,
+    'outdegrees': get_outdegrees,
+    'degrees': get_degrees,
+    'distances': get_distances,
+    'clustering': get_clustering,
+    'importance': get_importance
+    # 'heterogeneity':nx.number_of_nodes,
+    # 'community_structure':nx.number_of_nodes,
+
+}
+
+
+def get_number_of_nodes_and_edges(results_path, name, numero=None):
+    dynamic_network = xml.parse(results_path).getroot()
+    if numero is not None:
+        print "probleme avec les graphes dynamiques"
+        static_network = dynamic_network.find(name + str(numero))
+    else:
+        static_network = dynamic_network.find("mesures")
+    nb_nodes = static_network.find('number_of_nodes').get('value')
+    nb_edges = static_network.find('number_of_edges').get('value')
+    return int(nb_nodes), int(nb_edges)
+
+
+'''
+functions that help comparing results
+'''
+
+
+def distance(obj1, obj2):
+    if type(obj1) is list:
+        return distance_distribution_different_size(obj1, obj2)
+    if type(obj1) in [float, int]:
+        return distance_numbers(obj1, obj2)
+    raise TypeError("Unknown type", type(obj1))
+
+
+def distance_numbers(number1, number2):
+    """distance de sorensen"""
+    distance = abs(number1 - number2) / (number1 + number2)
+    return distance
+
+
+def distance_distribution_different_size(distri1, distri2):
+    """city-block distance ou L1 distance"""
+    length = min(len(distri1), len(distri2))
+    distriaux1 = np.array(distri1[:length])
+    distriaux2 = np.array(distri2[:length])
+    distance = np.sum(np.absolute(distriaux1 - distriaux2)) / 2
+    return distance
+
+
+'''
 def get_datas_from_real_network (data_path,results_path,**kwargs):
     takes a relative path to network-type file and store relevant infos for future studies
     
@@ -53,24 +204,11 @@ def get_datas_from_real_network (data_path,results_path,**kwargs):
     f.close()
  '''
 
-
-def get_datas_from_real_network(data_path, results_path, name=None, dynamic=None, evaluation_method=""):
-    """takes a relative path to directory containing network files and store relevant infos for future studies
-    """
-    # extension = kwargs.get('extension')
-    if not os.path.exists(os.path.dirname(results_path)):
-        os.makedirs(os.path.dirname(results_path))
-    f = open(results_path, 'w+')
-    try:
-
-        parser = xml.XMLParser(remove_blank_text=True)
-        tree = xml.parse(results_path,parser)
-        root = tree.getroot()
-    except (IOError,xml.XMLSyntaxError):
-        root = xml.Element("results")
+'''
 
     if dynamic:
-        print "DYNAMIC NETWORK EVALUATION NOT CODED"
+        """
+        print "DYNAMIC NETWORK EVALUATION NOT IMPLEMENTED"
         # number_of_networks = 0
         # for each time step, we store data about the network at this time
         for network_file in os.listdir(data_path):
@@ -87,19 +225,12 @@ def get_datas_from_real_network(data_path, results_path, name=None, dynamic=None
                 # we write the number of steps in the dynamic of the network
         # sub = xml.SubElement(dynamic_network,"number_of_timestamps")
         # sub.attrib['value'] = str(number_of_networks)
-
+        f = open(results_path, 'w')
         xml.ElementTree(root).write(f, pretty_print=True)
-
+        f.close()
+        """
     else:
-        if root.find("mesures") is None :
-            graph = read_typed_file(data_path + extension)
-            static_network = xml.SubElement(root, "mesures")
-            xml.SubElement(static_network,"name",value=name)
-            set_evaluation_datas(graph, static_network, evaluation_method=evaluation_method)
-            print(xml.tostring(root, pretty_print=True))
-            xml.ElementTree(root).write(f, pretty_print=True)
-    f.close()
-
+'''
 
 '''
 def eval_network(network,results_path,**kwargs):
@@ -121,12 +252,14 @@ def eval_network(network,results_path,**kwargs):
     raise Exception("no evaluation_method or network_type given")
 '''
 
-
+'''
 def eval_network(network, results_path, number="", **kwargs):
     eval_methods = kwargs.get("evaluation_method")
     name = kwargs.get('name')
     dynamic_network = xml.parse(results_path).getroot()
     static_network = dynamic_network.find("mesures" + str(number))
+
+
     dict_proximity = {}
 
     if 'nodes' in eval_methods:
@@ -168,12 +301,52 @@ def eval_network(network, results_path, number="", **kwargs):
     dict_proximity['proximity_aggregated'] = min(dict_proximity.values())
     return dict_proximity
     # raise Exception("no evaluation_method given")
+    '''
 
-    """ 
-    Function that help evaluating network
-    """
+'''
+    if  'nodes' in eval_methods:
+        number_of_nodes_test = nx.number_of_nodes(network)
+        goal = int(graph_xml.find('nodes').get('value'))
+        add('nodes',number_of_nodes_test,goal)
 
+    if 'density' in eval_methods:
+        number_of_nodes_test = nx.density(network)
+        goal = float(graph_xml.find('density').get('value'))
+        add('density',number_of_nodes_test,goal)
 
+    if 'communities' in eval_methods:
+        number_of_nodes_test = nx.density(network)
+        goal = float(graph_xml.find('communities').get('value'))
+        add('communities',number_of_nodes_test,goal)
+        proximity_communities = eval_proximity_communities(network, static_network)
+        dict_proximity['proximity_communities'] = proximity_communities
+
+    if 'degrees' in eval_methods:
+        proximity_degrees = eval_proximity_degrees(network, static_network)
+        dict_proximity['proximity_degrees'] = proximity_degrees
+
+    if 'distances' in eval_methods:
+        proximity_distances = eval_proximity_distances(network, static_network)
+        dict_proximity['proximity_distances'] = proximity_distances
+
+    if 'clustering' in eval_methods:
+        proximity_clustering = eval_proximity_clustering(network, static_network)
+        dict_proximity['proximity_clustering'] = proximity_clustering
+
+    if 'importance' in eval_methods:
+        proximity_importance = eval_proximity_importance(network, static_network)
+        dict_proximity['proximity_importance'] = proximity_importance
+
+    if 'heterogeneity' in eval_methods:
+        proximity_heterogeneity = eval_proximity_heterogeneity(network, static_network)
+        dict_proximity['proximity_heterogeneity'] = proximity_heterogeneity
+
+    if 'community_structure' in eval_methods:
+        proximity_community_structure = eval_proximity_community_structure(network, static_network)
+        dict_proximity['proximity_community_structure'] = proximity_community_structure
+    '''
+
+"""
 def eval_proximity_nodes(network, graph_xml):
     '''returns the proximity of number of nodes between synthetic network(test) and real network (goal)'''
     number_of_nodes_test = nx.number_of_nodes(network)
@@ -264,7 +437,7 @@ def eval_proximity_heterogeneity(network, graph_xml):
     coef_test = powerlaw.Fit(nx.degree(network).values()).power_law.alpha
     coef_goal = powerlaw.Fit(eval(graph_xml.find('degree').get('value'))).power_law.alpha
 
-    proximity = proximity_distributions_different_size(coef_goal, coef_test)
+    proximity = proximity_numbers(coef_goal, coef_test)
     return proximity
 
 
@@ -281,7 +454,7 @@ def eval_proximity_importance(network, graph_xml):
 
     proximity = proximity_distributions_different_size(importance_goal, importance_test)
     return proximity
-
+"""
 
 '''
 def eval_degree_distribution(network,results_path):
@@ -352,11 +525,8 @@ def compare(list1, list2):
     array2 = np.array(list2)
     return sum(abs(array1-array2))
 '''
-'''
-functions that help comparing results
-'''
 
-
+"""
 def proximity_numbers(number1, number2):
     '''returns a number between 0 and 1
     equals to 1 if networks have the same number (of nodes) in order of magnitude
@@ -399,23 +569,7 @@ def proximity_distributions_same_size(array1, array2):
     return proximity
 
 
-def get_communities(network):
-    '''
-    take a network and returns a vector containing sorted proportions of each community of the network
-    Louvain algorithm is used to detect communities
-    '''
 
-    communities = community.best_partition(nx.Graph(network)).values()
-    communities_hist = np.bincount(communities)
-    communities_distribution = communities_hist / float(len(communities))
-    communities_sorted = sorted(communities_distribution, reverse=True)
-    return communities_sorted
-
-
-def get_equivalent_number(proportions):
-    values = np.square(proportions)
-    equivalent_number_of_communities = 1 / (sum(values))
-    return equivalent_number_of_communities
 
 
 def proximity_distributions_different_size(array1, array2):
@@ -456,7 +610,24 @@ def proximity_distributions_different_size(array1, array2):
         proximity = proximity_distributions_same_size(array1_exp, array2_exp)
     return proximity
 
+def get_communities(network):
+    '''
+    take a network and returns a vector containing sorted proportions of each community of the network
+    Louvain algorithm is used to detect communities
+    '''
 
+    communities = community.best_partition(nx.Graph(network)).values()
+    communities_hist = np.bincount(communities)
+    communities_distribution = communities_hist / float(len(communities))
+    communities_sorted = sorted(communities_distribution, reverse=True)
+    return communities_sorted
+
+
+def get_equivalent_number(proportions):
+    values = np.square(proportions)
+    equivalent_number_of_communities = 1 / (sum(values))
+    return equivalent_number_of_communities
+"""
 """ 
 Function that help reading file and storing datas
 """
@@ -499,7 +670,6 @@ def get_evaluation_datas(graph, **kwargs) :
 def set_evaluation_datas(graph, graph_xml, evaluation_method=''):
     '''if no precise evaluation method is given, we compute every possible measure (wrong !!)'''
 
-
     def add_sub(name, value):
         sub = xml.SubElement(graph_xml, name)
         sub.attrib['value'] = str(value)
@@ -514,16 +684,24 @@ def set_evaluation_datas(graph, graph_xml, evaluation_method=''):
     nodes = nx.number_of_nodes(graph)
 
     # should be replaced by getattr(graph, variable) loop
+
+
+    for mesure in evaluation_method.split('_'):
+        add_sub(mesure, d_method[mesure](graph))
+    '''
     if graph.is_directed():
+
         if 'vertices' in evaluation_method:
             add_sub('vertices', nx.number_of_edges(graph) / (nodes * (nodes - 1)))
         if 'degrees' in evaluation_method:
-            add_sub('in_degrees', graph.in_degree().values())
-            add_sub('out_degrees', graph.out_degree().values())
+            ideg = graph.in_degree().values()
+            add_sub('in_degrees', hist(ideg, max(ideg)))
+            odeg = graph.out_degree().values()
+            add_sub('out_degrees', hist(odeg, max(odeg)))
         if 'importance' in evaluation_method:
-            add_sub('importance', nx.pagerank(graph).values())
+            add_sub('importance', hist(nx.pagerank(graph).values(), number_of_elements_by_array))
         if 'clustering' in evaluation_method or 'heterogeneity' in evaluation_method:
-            add_sub('clustering', nx.clustering(graph.to_undirected()).values())
+            add_sub('clustering', hist(nx.clustering(graph.to_undirected()).values(), number_of_elements_by_array))
         if 'community_structure' in evaluation_method:
             add_sub('degree', graph.degree().values())
 
@@ -533,15 +711,19 @@ def set_evaluation_datas(graph, graph_xml, evaluation_method=''):
         if 'communities' in evaluation_method:
             add_sub('communities', get_communities(graph))
         if 'degrees' in evaluation_method or 'community_structure' in evaluation_method:
-            add_sub('degrees', graph.degree().values())
+            degree = graph.degree().values()
+            add_sub('degrees', hist(degree, max(degree) - 1))
         if 'clustering' in evaluation_method or 'heterogeneity' in evaluation_method:
-            add_sub('clustering', nx.clustering(graph).values())
+            add_sub('clustering', hist(nx.clustering(graph).values(), number_of_elements_by_array))
         if 'importance' in evaluation_method:
-            add_sub('importance', nx.eigenvector_centrality_numpy(graph).values())
+            add_sub('importance', hist(nx.eigenvector_centrality_numpy(graph).values(), number_of_elements_by_array))
 
     if 'distances' in evaluation_method:
-        add_sub('distances', list(it.chain.from_iterable(
-            [dict_of_length.values() for dict_of_length in nx.shortest_path_length(graph).values()])))
+        distance = list(it.chain.from_iterable(
+            [dict_of_length.values() for dict_of_length in nx.shortest_path_length(graph).values()]))
+
+        add_sub('distances', hist(distance, max(distance)))
+    '''
 
 
 '''
@@ -602,19 +784,6 @@ def datas_2distributions_undirected(graph) :
     shortest_path = get_histogram(list(it.chain.from_iterable([ dict_of_length.values() for dict_of_length in nx.shortest_path_length(graph).values()])))
     return '\n'.join([str(indegree),str(shortest_path)])
 '''
-
-
-def get_number_of_nodes_and_edges(results_path, name, numero=None):
-    dynamic_network = xml.parse(results_path).getroot()
-    if numero is not None:
-        print "probleme avec les graphes dynamiques"
-        static_network = dynamic_network.find(name + str(numero))
-    else:
-        static_network = dynamic_network.find("mesures")
-    nb_nodes = static_network.find('number_of_nodes').get('value')
-    nb_edges = static_network.find('number_of_edges').get('value')
-    return int(nb_nodes), int(nb_edges)
-
 
 '''
 def get_number_of_edges(results_path,numero):
