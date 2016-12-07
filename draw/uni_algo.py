@@ -23,18 +23,17 @@ and call it
 
 
 
-
 def main():
     arguments = sys.argv
-    network_name = arguments[1]
-    is_directed = arguments[2]
-    network_number = arguments[3]
-    data_path = arguments[4] #data_path = "../work/files/" + network_number + "-" + network['name'] + "/" + network['name']
+    network_name = "dwt_weighted_network_1977_C"
+    is_directed = True
+    network_number = "0"
+    data_path = "../work/files/" + network_number + "-" + network_name + "/" + network_name
     results_path = data_path+"_results.xml"
     stats_path = data_path+'_stats.txt'
     dot_path = data_path+'_trees.jpeg'
-    nb_generations = arguments[5]
-    freq_stats = arguments[6]
+    nb_generations = 40
+    freq_stats = 5
 
 
     #evaluation_method = "communities_degrees_distances_clustering_importance"
@@ -69,7 +68,8 @@ def main():
         dynamic=dynamic,
         tree_type=tree_type,
         network_type=network_type,
-        extension=extension
+        extension=extension,
+        number_of_nodes=10
     )
 
                 # optional arguments for evolve :

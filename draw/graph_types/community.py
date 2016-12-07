@@ -162,7 +162,7 @@ def best_partition(graph, partition = None) :
     >>>  #Basic usage
     >>> G=nx.erdos_renyi_graph(100, 0.01)
     >>> part = best_partition(G)
-    
+
     >>> #other example to display a graph with its community :
     >>> #better with karate_graph() as defined in networkx examples
     >>> #erdos renyi don't have true community structure

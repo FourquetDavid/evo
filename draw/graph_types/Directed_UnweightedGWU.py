@@ -22,11 +22,21 @@ import community as com
 
 
 class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
+    # avoid decorators syntax problems for line_profiling
+    import __builtin__
+    try:
+        __builtin__.profile
+    except AttributeError:
+        # No line profiler, provide a pass-through version
+        def profile(func):
+            return func
+
+        __builtin__.profile = profile
+
     def __init__(self, graph=None):
 
         nx.DiGraph.__init__(self, graph)
-        self.i_graphe = ig.Graph()
-        self.shortest_path_dict = None
+        self.i_graphe = ig.Graph(directed=True)
         self.shortest_path_matrix = None
         self.max_distance = None
         self.max_in_degree = None
@@ -44,8 +54,20 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
             self.shortest_path_dict = nx.shortest_path_length(self)
         if self.shortest_path_matrix is not None:
             self.shortest_path_matrix = np.array(self.i_graphe.shortest_paths_dijkstra())
+        if self.max_in_degree is not None:
+            self.max_in_degree = float(max(self.in_degree().values()))
+        if self.max_out_degree is not None:
+            self.max_out_degree = float(max(self.out_degree().values()))
+    @profile
+    def add_edges_from(self, ebunch):
+        nx.DiGraph.add_edges_from(self, ebunch)
+        self.i_graphe.add_edges([(u,v) for u,v,w in ebunch])
+
+        # update info about the network : not really an update but a computation
+        if self.shortest_path_matrix is not None:
+            self.shortest_path_matrix = np.array(self.i_graphe.shortest_paths_dijkstra())
         if self.max_distance is not None:
-            self.max_distance = max(max(self.get_shortest_path_dict().values()))
+            self.max_distance = np.max(self.get_shortest_path_matrix())
         if self.max_in_degree is not None:
             self.max_in_degree = float(max(self.in_degree().values()))
         if self.max_out_degree is not None:
@@ -127,8 +149,8 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
         """ returns a 2d array containing the out degree of the target node for all edges
         """
         return self.TargOutDegree() / self.get_max_out_degree()
-        # @profile
 
+    @profile
     def OrigPagerank(self):
         """ returns a 2d array containing the pagerank of the origin node for all edges
 
@@ -137,11 +159,11 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
             np.ones((1, self.number_of_nodes())))
         """
         try:
-            return self.Orig(nx.pagerank_scipy(self))
+            return self.Orig(self.i_graphe.pagerank())
         except:
             return self.Orig(np.ones(self.number_of_nodes(), dtype=float) / self.number_of_nodes())
 
-    # @profile
+    @profile
     def TargPagerank(self):
         """ returns a 2d array containing the pagerank of the target node for all edges
 
@@ -151,11 +173,11 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
         )
         """
         try:
-            return self.Targ(nx.pagerank_scipy(self))
+            return self.Targ(self.i_graphe.pagerank())
         except:
             return self.Targ(np.ones(self.number_of_nodes(), dtype=float) / self.number_of_nodes())
 
-    # @profile
+    @profile
     def OrigCoreN(self):
         """ returns a 2d array containing the pagerank of the origin node for all edges
 
@@ -165,7 +187,7 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
         """
         return self.Orig(nx.core_number(self))
 
-    # @profile
+    @profile
     def TargCoreN(self):
         """ returns a 2d array containing the pagerank of the target node for all edges
 
@@ -176,7 +198,7 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
         """
         return self.Targ(nx.core_number(self))
 
-    # @profile
+    @profile
     def OrigCloseness(self):
         """ returns a 2d array containing the closeness of the origin node for all edges
 
@@ -186,7 +208,7 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
         """
         return self.Orig(nx.closeness_centrality(self))
 
-    # @profile
+    @profile
     def TargCloseness(self):
         """ returns a 2d array containing the closeness of the target node for all edges
 
@@ -197,7 +219,7 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
         """
         return self.Targ(nx.closeness_centrality(self))
 
-    # @profile
+    @profile
     def OrigBetweenness(self):
         """ returns a 2d array containing the betweenness of the origin node for all edges
 
@@ -210,7 +232,7 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
         return self.Orig(nx.betweenness_centrality(self))
         """
 
-    # @profile
+    @profile
     def TargBetweenness(self):
         """ returns a 2d array containing the betweenness of the target node for all edges
 
@@ -224,7 +246,7 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
         return self.Targ(nx.betweenness_centrality(self))
         """
 
-    # @profile
+    @profile
     def OrigClustering(self):
         """ returns a 2d array containing the clustering of the origin node for all edges
 
@@ -234,7 +256,7 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
         """
         return self.Orig(nx.clustering(self.to_undirected()))
 
-    # @profile
+    @profile
     def TargClustering(self):
         """ returns a 2d array containing the clustering of the target node for all edges
 
@@ -245,7 +267,7 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
         """
         return self.Targ(nx.clustering(self.to_undirected()))
 
-    # @profile
+    @profile
     def OrigEccentricity(self):
         """ returns a 2d array containing the eccentricity of the origin node for all edges
         """
@@ -260,7 +282,7 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
             """
         return self.Orig(eccentricity)
 
-    # @profile
+    @profile
     def TargEccentricity(self):
         """ returns a 2d array containing the eccentricity of the target node for all edges
         """
@@ -276,21 +298,9 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
         """
         return self.Targ(eccentricity)
 
-    # @profile
-    def SameCommunity(self):
-        """ returns a 2d array containing 1 when both nodes are in the same community"""
-        partition = com.best_partition(self)
 
-        probas = np.zeros((self.number_of_nodes(), self.number_of_nodes()))
 
-        for node1 in partition:
-            for node2 in partition:
-                if partition[node1] == partition[node2]:
-                    probas[node1, node2] = 1.
-
-        return probas
-
-    # @profile
+    @profile
     def OrigEccentricity(self):
         """ returns a 2d array containing the eccentricity of the origin node for all edges
         """
@@ -305,7 +315,7 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
             """
         return self.Orig(eccentricity)
 
-    # @profile
+    @profile
     def TargEccentricity(self):
         """ returns a 2d array containing the eccentricity of the target node for all edges
         """
@@ -321,11 +331,18 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
         """
         return self.Targ(eccentricity)
 
-    # @profile
+    @profile
     def SameCommunity(self):
         """ returns a 2d array containing 1 when both nodes are in the same community"""
-        partition = com.best_partition(nx.Graph(self))
-
+        if self.number_of_edges() > 3:
+            try:
+                partition = com.best_partition(nx.Graph(self)).values()
+            except ZeroDivisionError:
+                partition = range(self.number_of_nodes())
+                print self.size(weight='weight')
+                print self.number_of_nodes(),self.number_of_edges()
+        else:
+            partition = range(self.number_of_nodes())
         probas = np.zeros((self.number_of_nodes(), self.number_of_nodes()))
 
         for node1 in partition:
@@ -368,31 +385,31 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
     def FeedForwardLoop(self):
         """returns a 2d array where a_i_j = 1 there is a path i->x->j
         """
-        return np.sign(np.linalg.matrix_power(nx.to_numpy_matrix(self, dtype=float), 2))
+        return np.array(np.sign(np.linalg.matrix_power(nx.to_numpy_matrix(self, dtype=float), 2)))
 
-    def FeedbackLoop(self):
+    def FeedBackLoop(self):
         """returns a 2d array where a_i_j = 1 there is a path j->x->i
         """
-        adj = nx.to_numpy_matrix(self, dtype=float)
+        adj = np.array(nx.to_numpy_matrix(self, dtype=float))
         return np.sign(np.transpose(np.linalg.matrix_power(adj, 2)))
 
     def SharedConsequence(self):
         """returns a 2d array where a_i_j = 1 there is a path i->x<-j
         """
-        adj = nx.to_numpy_matrix(self, dtype=float)
+        adj = np.array(nx.to_numpy_matrix(self, dtype=float))
         tr = np.transpose(adj)
         return np.sign(np.dot(adj, tr))
 
     def SharedCause(self):
         """returns a 2d array where a_i_j = 1 there is a path i<-x->j
         """
-        adj = nx.to_numpy_matrix(self, dtype=float)
+        adj = np.array(nx.to_numpy_matrix(self, dtype=float))
         tr = np.transpose(adj)
         return np.sign(np.dot(tr, adj))
 
     def Reciprocity(self):
         """returns a 2d array where a_i_j =1 if there is an edge from j to i"""
-        return np.transpose(nx.to_numpy_matrix(self, dtype=float))
+        return np.array(np.transpose(nx.to_numpy_matrix(self, dtype=float)))
 
     def NormalizedDistance(self):
         """ returns a 2d array containing the distance = shortest path length, takes weights into account"""
@@ -424,13 +441,13 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
 
         probas = np.random.rand(self.number_of_nodes(), self.number_of_nodes())
         return probas
-
+    """
     def get_shortest_path_dict(self):
-        """ returns the dict od dict of shortest path lengths, if it does not exist, it creates it"""
+        ''' returns the dict od dict of shortest path lengths, if it does not exist, it creates it'''
         if self.shortest_path_dict is None:
             self.shortest_path_dict = nx.shortest_path_length(self)
         return self.shortest_path_dict
-
+    """
     def get_shortest_path_matrix(self):
         """ returns the dict od dict of shortest path lengths, if it does not exist, it creates it"""
         if self.shortest_path_matrix is None:
@@ -451,6 +468,5 @@ class Directed_UnweightedGWU(gwu.GraphWithUpdate, nx.DiGraph):
 
     def get_max_distance(self):
         if self.max_distance is None:
-            self.max_distance = max(
-                max(dictionnaire.values()) for dictionnaire in self.get_shortest_path_dict().values())
+            self.max_distance = np.max(self.get_shortest_path_matrix())
         return self.max_distance

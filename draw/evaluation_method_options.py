@@ -89,7 +89,7 @@ def get_alleles(evaluation_method, network_type):
                      "OrigClustering", "TargClustering", "OrigCoreN", "TargCoreN",
                      "OrigEccentricity","TargEccentricity",
                      "Distance", "NormalizedDistance","RevDistance","NormalizedRevDistance",
-                     "SameCommunity","Reciprocity",  "FeedForwardLoop","FeedBackLoop","SharedConsequence","SharedCause"
+                     "SameCommunity","Reciprocity",  "FeedForwardLoop","FeedBackLoop","SharedConsequence","SharedCause",
                      "NumberOfEdges", "Constant", "Random"
                      ]]
 

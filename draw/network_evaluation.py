@@ -4,13 +4,13 @@ Created on 15 nov. 2012
 @author: David Fourquet
 """
 import itertools as it
-import math
 import os
+
 import networkx as nx
 import numpy as np
 from lxml import etree as xml
+
 import community
-import powerlaw
 
 """
 contains two main function :
@@ -31,7 +31,10 @@ def get_datas_from_real_network(data_path, results_path, name=None, dynamic=None
     """
 
     if not os.path.isfile(results_path):
-        os.makedirs(os.path.dirname(results_path))
+        try :
+            os.makedirs(os.path.dirname(results_path))
+        except OSError :
+            pass
         results = xml.Element('results')
         tree = xml.ElementTree(results)
     else:
@@ -45,8 +48,14 @@ def get_datas_from_real_network(data_path, results_path, name=None, dynamic=None
 
     if results.find("mesures") is None:
         graph = read_typed_file(data_path + extension)
+        if graph.is_multigraph() :
+            if graph.is_directed() :
+                graph = nx.DiGraph(graph)
+            else:
+                graph = nx.Graph(graph)
         static_network = xml.SubElement(results, "mesures")
         xml.SubElement(static_network, "name", value=name)
+
         set_evaluation_datas(graph, static_network, evaluation_method=evaluation_method)
         print(xml.tostring(results, pretty_print=True))
         f = open(results_path, 'w')
@@ -59,15 +68,19 @@ def eval_network(network, results_path, number="", **kwargs):
     dynamic_network = xml.parse(results_path).getroot()
     graph_xml = dynamic_network.find("mesures" + str(number))
     dictionnary_distance = {}
-
+    dictionnary_distrib ={}
     def add(mesure, a, b): dictionnary_distance[mesure] = distance(a, b)
 
     for mesure in eval_methods.split('_'):
         value_test = d_method[mesure](network)
+        dictionnary_distrib[mesure] = value_test
         value_goal = eval(graph_xml.find(mesure).get('value'))
         add(mesure, value_test, value_goal)
-    dictionnary_distance['max_distance'] = max(dictionnary_distance.values())
-    return dictionnary_distance
+
+    dictionnary_distance['raw_score'] = max(dictionnary_distance.values())
+    return dictionnary_distance['raw_score'],dictionnary_distance,dictionnary_distrib
+
+
 
     '''
     Function that help evaluating network
@@ -85,8 +98,15 @@ def get_communities(network):
     take a network and returns a vector containing sorted proportions of each community of the network
     Louvain algorithm is used to detect communities
     '''
-
-    communities = community.best_partition(nx.Graph(network)).values()
+    if network.number_of_edges()> 1:
+        try :
+            communities = community.best_partition(nx.Graph(network)).values()
+        except ZeroDivisionError:
+            communities = range(network.number_of_nodes())
+            print network.size(weight = 'weight')
+            print network.number_of_nodes(),network.number_of_edges()
+    else :
+        communities = range(network.number_of_nodes())
     communities_hist = np.bincount(communities)
     communities_distribution = communities_hist / float(len(communities))
     communities_sorted = sorted(communities_distribution, reverse=True)
@@ -101,10 +121,10 @@ def get_hist_data(data):
 def get_degrees(network): return get_hist_data(network.degree().values())
 
 
-def get_indegrees(network): return get_hist_data(network.indegree().values())
+def get_indegrees(network): return get_hist_data(network.in_degree().values())
 
 
-def get_outdegrees(network): return get_hist_data(network.outdegree().values())
+def get_outdegrees(network): return get_hist_data(network.out_degree().values())
 
 
 def get_distances(network): return get_hist_data(list(it.chain.from_iterable(
@@ -113,11 +133,14 @@ def get_distances(network): return get_hist_data(list(it.chain.from_iterable(
 
 
 def get_clustering(network):
-    return hist(nx.clustering(network).values(), number_of_elements_by_array)
+    return hist(nx.clustering(network.to_undirected()).values(), number_of_elements_by_array)
 
 
 def get_importance(network):
-    return hist(nx.eigenvector_centrality_numpy(network).values(), number_of_elements_by_array)
+    try :
+        return hist(nx.eigenvector_centrality_numpy(network).values(), number_of_elements_by_array)
+    except :
+        return hist(np.ones(network.number_of_nodes(), dtype=float) / network.number_of_nodes(), number_of_elements_by_array)
 
 
 d_method = {

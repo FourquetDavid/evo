@@ -36,6 +36,14 @@ contains one main function :
 
 """
 
+#avoid decorators syntax problems for line_profiling
+import __builtin__
+try:
+    __builtin__.profile
+except AttributeError:
+    # No line profiler, provide a pass-through version
+    def profile(func): return func
+    __builtin__.profile = profile
 
 def grow_network(decision_tree, number_of_nodes, number_of_steps, graph=None):
     '''takes a tree of decision and returns the graph that grows according to those rules'''
@@ -49,8 +57,8 @@ def grow_network(decision_tree, number_of_nodes, number_of_steps, graph=None):
         '''
     if tree_type == "with_constants":
         return grow_network_with_constants(decision_tree, number_of_nodes, number_of_steps, graph)
-    if tree_type == "with_constants_multi":
-        return grow_network_with_constants_multi_step(decision_tree, number_of_nodes, number_of_steps, graph)
+        # if tree_type == "with_constants_multi":
+        # return grow_network_with_constants_multi_step(decision_tree, number_of_nodes, number_of_steps, graph)
 
     raise Exception("no tree_type given")
 
@@ -95,6 +103,7 @@ def grow_simple_network(graph,decision_tree,number_of_nodes, number_of_edges):
 '''
 
 
+@profile
 def grow_network_with_constants(decision_tree, number_of_nodes, number_of_edges, graph=None):
     '''takes a tree of decision and returns the graph that grows according to those rules'''
     '''graph can be (un)directed/(un)weighted'''
@@ -106,40 +115,49 @@ def grow_network_with_constants(decision_tree, number_of_nodes, number_of_edges,
     for i in range(number_of_nodes):
         graph.add_node(i + number_of_nodes_init)
     # adds one edge according to its probability
-    number_of_steps =1
+    number_of_steps = 1
     old_probas = None
-    while (graph.number_of_edges() < number_of_edges):
+    while graph.number_of_edges() < number_of_edges:
         # each edge has a probability that is the result of the tree
         probas = calc_with_constants(decision_tree.getRoot(), graph)
-        #if probas stay near from last step, we dobble the number of new edges created
-        if near(probas,old_probas) :
-            number_of_steps *=2
-        else :
-            number_of_steps = max(1,number_of_steps/2)
-            old_probas = probas
-        for _ in range(number_of_steps) :
+        # if probas stay near from last step, we dobble the number of new edges created
+        if near(probas, old_probas):
+            number_of_steps *= 2
+        else:
+            number_of_steps = max(1, number_of_steps / 2)
+        old_probas = probas
+        list_edges = []
+        for _ in range(number_of_steps):
             # we remove unnecessary edges : self loops, negative proba
             # we choose one among remaining ones
 
             edge, weight_value = choose_edge(probas, graph)
-
             if edge is None:  # this can happen if every edge has a -infinity probability thanks to log or / or - exp...
                 break
-            if graph.isWeighted():
-                graph.add_edge(*edge, weight=weight_value)
-            else:
-                graph.add_edge(*edge)
 
-    print graph.number_of_nodes(),graph.number_of_edges()
+            source, target = edge
+            list_edges.append((source, target, {"weight": weight_value}))
+
+        if len(
+                list_edges) == 0:  # this can happen if every edge has a -infinity probability thanks to log or / or - exp...
+            break
+        graph.add_edges_from(list_edges)
     return graph
 
-def near(probas,old_probas):
-    if old_probas is None: return False
-    print np.absolute(probas-old_probas)
-    print np.nanmax(np.absolute(probas-old_probas))
-    print (np.max(np.absolute(probas-old_probas)) < np.max(probas)/10)
-    if (np.max(np.absolute(probas-old_probas)) < np.max(probas)/10) : return True
 
+def near(probas, old_probas):
+    if old_probas is None: return False
+    try:
+        diff = np.absolute(probas - old_probas)
+        maxdiff = np.max(diff[np.isfinite(diff)])
+        pb = np.absolute(probas)
+        threshhold = np.max(pb[np.isfinite(pb)])
+        if maxdiff < threshhold / 2: return True
+    except ValueError:
+        return False
+
+
+"""
 def grow_network_with_constants_multi_step(decision_tree, number_of_nodes, number_of_steps, graph=None):
     '''takes a tree of decision and returns the graph that grows according to those rules'''
     '''graph can be (un)directed/(un)weighted'''
@@ -165,37 +183,31 @@ def grow_network_with_constants_multi_step(decision_tree, number_of_nodes, numbe
                 graph.add_edge(*edge)
 
     return graph
-
+"""
 
 '''
 Functions that let us choose a random element in the matrix of probabilities
 '''
 
 
+@profile
 def choose_edge(probas, network):
     ''' takes a matrix of probabilities and a network, 
     returns an edge (no self loop, not already present in the network) according to probabilities and its weight for the network'''
     '''the returned weight is (1+erf(proba)) /2 : because this function takes a number in R and return a number between 0 and 1'''
-    # we mark impossible edge, because it faster to remove them this way instead of filtering the matrix enumerated
-    # finding edges in matrices is in constant time 
-    # finding edges in sequences is in linear time
-
-    # gives -infinity as probability to self loops
-    np.fill_diagonal(probas, float('-inf'))
-    # gives -infinity as probability to already existing edges
-    if network.isDirected():
-        for edge in network.edges_iter():
-            probas[edge] = float('-inf')
-    else:
-        'because edges are only stored once : begin-end and not end-begin'
-        for target, origin in network.edges_iter():
-            probas[origin, target] = float('-inf')
-            probas[target, origin] = float('-inf')
 
     # probas can contain a number + infinity, -inifinity, nan
-    liste_probas = np.ndenumerate(probas)
+    coord_i = np.random.randint(0, network.number_of_nodes(), network.number_of_nodes())
+    coord_j = np.random.randint(0, network.number_of_nodes(), network.number_of_nodes())
+
+    liste_probas = zip(zip(coord_i, coord_j), probas[coord_i, coord_j])
+
     # we list possible edge : no self loops, no existing edges, no negative probabilities
-    possible_edges = [x for x in liste_probas if x[1] > float('-inf')]
+    edge = network.has_edge
+
+    possible_edges = [x for x in liste_probas if x[1] > float('-inf') and x[0][0] != x[0][1] and not edge(*x[0])]
+
+
     # if there is no possible edge, we stop the building of the network
     if len(possible_edges) == 0:
         return (None, 0)
@@ -226,6 +238,7 @@ def choose_edge(probas, network):
     return random.choice(possible_edges)
 
 
+"""
 def choose_edges(probas, network, number):
     ''' takes a matrix of probabilities and a network, 
     returns N edges (no self loop, not already present in the network) according to probabilities and its weight for the network'''
@@ -247,7 +260,7 @@ def choose_edges(probas, network, number):
             probas[target, origin] = float('-inf')
 
     # probas can contain a number + infinity, -inifinity, nan
-    liste_probas = np.ndenumerate(probas)
+    liste_probas = sample(probas,network.number_of_nodes())
     # we list possible edge : no self loops, no existing edges, no negative probabilities
     possible_edges = [x for x in liste_probas if x[1] > float('-inf')]
 
@@ -270,6 +283,7 @@ def choose_edges(probas, network, number):
         except:
             pass
     return edges_result
+"""
 
 
 def choose_edge_among(possible_edges, positive_edges, infinite_edges):
@@ -343,10 +357,10 @@ def calc_with_constants(node, graph):
     else:
 
         # values returned are arrays of dimension 2
-        if data in ["H","opp","T","inv","exp","abs","log"] :
+        if data in ["H", "opp", "T", "inv", "exp", "abs", "log"]:
             value0 = calc_with_constants(node.getChild(0), graph)
             value1 = None
-        else :
+        else:
             value0 = calc_with_constants(node.getChild(0), graph)
             value1 = calc_with_constants(node.getChild(1), graph)
         return compute_function(data, value0, value1)
@@ -384,7 +398,6 @@ def compute_leaf(graph, variable):
     return getattr(graph, variable)()
 
 
-
 def div(a, b):
     'divides by 1+b to avoid dividing by 0 in most cases'
     return a / (1 + b)
@@ -404,7 +417,7 @@ def abs(a, b):
 
 
 def inv(a, b):
-    return 1/(1+a)
+    return 1 / (1 + a)
 
 
 def opp(a, b):

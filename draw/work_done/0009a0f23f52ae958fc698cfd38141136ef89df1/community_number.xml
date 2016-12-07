@@ -1,0 +1,7 @@
+<root>
+  <doc>
+    <number_of_communities name="number_of_communities">6</number_of_communities>
+    <equivalent_number_of_communities name="equivalent_number_of_communities">3.66555589215</equivalent_number_of_communities>
+    <size_main_component name="size_main_component">0.35</size_main_component>
+  <size name="size">220</size><density name="density">0.05212809917355372</density><centralization name="centralization">0.207657827489</centralization><modularity name="modularity">0.634114383895</modularity></doc>
+</root>

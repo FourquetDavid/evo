@@ -16,6 +16,9 @@ import pyevolve.DBAdapters as db
 import logging
 from collections import defaultdict
 import operator
+import numpy as np
+import matplotlib.pyplot as plt
+from lxml import etree as xml
 
 
 class StatisticsInTxt(db.DBBaseAdapter):
@@ -46,7 +49,6 @@ class StatisticsInTxt(db.DBBaseAdapter):
             open_mode = "w"
         else:
             open_mode = "a"
-        self.fHandle = open(self.filename, open_mode)
         self.file = open(self.filename, open_mode)
 
         self.file.write("name = %s \n" % ga_engine.getPopulation().oneSelfGenome.getParam("name"))
@@ -66,6 +68,8 @@ class StatisticsInTxt(db.DBBaseAdapter):
         print "selector = %s" % ga_engine.selector
         print "multiprocessing = %s" % ga_engine.getPopulation().multiProcessing[0]
 
+        self.file.close()
+
     def close(self):
         """ Closes the Txt file  """
         logging.debug("Closing the txt file [%s]", self.filename)
@@ -76,7 +80,7 @@ class StatisticsInTxt(db.DBBaseAdapter):
         self.close()
 
     def insert(self, ga_engine):
-
+        self.file = open(self.filename, 'a')
         """ writes population statistics and the 5 best elements"""
         self.file.write(
             "#####      Generation  {numero}   ###########\n".format(numero=ga_engine.getCurrentGeneration()))
@@ -93,7 +97,7 @@ class StatisticsInTxt(db.DBBaseAdapter):
             print tree.getRawScore()
             self.file.write(getTreeString(tree))
             print getTreeString(tree)
-
+        self.file.close()
 
 class StatisticsInDot(db.DBBaseAdapter):
     ''' This class inherits from DBAdpater in pyevolve, it will be called at each generation of the genetic algorithm
@@ -124,7 +128,6 @@ class StatisticsInDot(db.DBBaseAdapter):
             open_mode = "w"
         else:
             open_mode = "a"
-        self.fHandle = open(self.filename, open_mode)
         self.file = open(self.filename, open_mode)
 
         self.file.write("name = %s \n" % ga_engine.getPopulation().oneSelfGenome.getParam("name"))
@@ -143,7 +146,7 @@ class StatisticsInDot(db.DBBaseAdapter):
         print "tree_type = %s" % ga_engine.getPopulation().oneSelfGenome.getParam("tree_type")
         print "selector = %s" % ga_engine.selector
         print "multiprocessing = %s" % ga_engine.getPopulation().multiProcessing[0]
-
+        self.file.close()
     def close(self):
         """ Closes the Txt file  """
         logging.debug("Closing the txt file [%s]", self.filename)
@@ -154,7 +157,7 @@ class StatisticsInDot(db.DBBaseAdapter):
         self.close()
 
     def insert(self, ga_engine):
-
+        self.file = open(self.filename, "a")
         """ writes population statistics and the 5 best elements"""
         self.file.write(
             "#####      Generation  {numero}   ###########\n".format(numero=ga_engine.getCurrentGeneration()))
@@ -164,15 +167,20 @@ class StatisticsInDot(db.DBBaseAdapter):
         print ga_engine.getPopulation()
         writePopulationDot(ga_engine, self.dot_path, "jpeg", 0, 25)
         pop = ga_engine.getPopulation()
+
         for i in xrange(5):
             self.file.write("######### Arbre num {numero} ###########\n".format(numero=i))
             print "######### Arbre num {numero} ###########".format(numero=i)
             tree = pop.bestFitness(i)
-            self.file.write(str(tree.getRawScore()))
-            print tree.getRawScore()
+            scores = {k: str(round(v,2)) for k, v in tree.scoref.score.items()}
+            score = str(round(tree.getRawScore(), 2))
+            score_str = score+" D:"+scores.get('degrees',"None")+" ID:"+scores.get('indegrees',"None")+" OD:"+scores.get('outdegrees',"None")+\
+                        " Di:"+scores['distances']+" C:"+scores['clustering']+" I:"+scores['importance']+" Co:"+scores['communities']+"\n"
+            self.file.write(score_str+"\n")
+            print(score_str)
             self.file.write(getTreeString(tree))
             print getTreeString(tree)
-
+        self.file.close()
 
 
 def getTreeString(tree, start_node=None, spc=0):
@@ -185,7 +193,13 @@ def getTreeString(tree, start_node=None, spc=0):
     str_buff = ""
     if start_node is None:
         start_node = tree.getRoot()
-        str_buff += "%s\n" % start_node
+        if start_node.isLeaf():
+            reprint_start_node = start_node.clone()
+            number,variable = reprint_start_node.getData()
+            reprint_start_node.setData([round(number,2),variable])
+            str_buff += "%s\n" % reprint_start_node
+        else:
+            str_buff += "%s\n" % start_node
     spaces = spc + 2
     if start_node.getData() in ["exp", "log", "abs", "inv", "opp", "H", "T", "N"]:
         child_node = start_node.getChild(0)
@@ -262,6 +276,66 @@ def writeDotGraph(tree, graph, startNode=0):
 
     return count
 
+'''
+Function that plts and stores stats from best individual
+'''
+def store_best_network(chromosome) :
+    eval_methods = chromosome.getParam("evaluation_method")
+    results_path = chromosome.getParam("results_path")
+    dynamic_network = xml.parse(results_path).getroot()
+    graph_xml = dynamic_network.find("mesures")
+
+    def plot(mesure) :
+        value_test = chromosome.scoref.distributions[mesure]
+        value_goal = eval(graph_xml.find(mesure).get('value'))
+        fig, ax = plt.subplots()
+        model = ax.bar(2 * np.arange(len(value_test)), value_test, 0.8, color='#ccffcc')
+        real = ax.bar(2 * np.arange(len(value_goal)) + 0.8, value_goal, 0.8, color='#ff9999')
+        ax.set_xticks(0.8 + 2 * np.arange(max(len(value_goal), len(value_test))))
+        ax.set_xticklabels(1 + np.arange(max(len(value_goal), len(value_test))))
+        ax.set_title("Distribution of " + mesure)
+        ax.legend((real, model), ('Real', 'Model'))
+        plt.savefig(results_path.replace("results.xml", "") + mesure + ".jpg")
+        plt.clf()
+
+
+
+    def save(mesure):
+        parser = xml.XMLParser(remove_blank_text=True)
+        tree = xml.parse(results_path, parser)
+        results = tree.getroot()
+        static_network = results.find("model")
+        try:
+            results.remove(results.find(mesure))
+        except TypeError:
+            pass
+        xml.SubElement(static_network, mesure, value=str(chromosome.scoref.distributions[mesure]))
+        f = open(results_path, 'w')
+        tree.write(f, pretty_print=True)
+        f.close()
+
+    def save_tree():
+        parser = xml.XMLParser(remove_blank_text=True)
+        tree = xml.parse(results_path, parser)
+        results = tree.getroot()
+        try:
+            results.remove(results.find("model"))
+        except TypeError:
+            pass
+        static_network = xml.SubElement(results, "model")
+        xml.SubElement(static_network, "tree", value=getTreeString(chromosome))
+        f = open(results_path, 'w')
+        tree.write(f, pretty_print=True)
+        f.close()
+
+    save_tree()
+    for mesure in eval_methods.split('_'):
+        save(mesure)
+        plot(mesure)
+
+
+
+
 
 list_of_functions_number = defaultdict(int)
 list_of_functions_sum = defaultdict(int)
@@ -297,7 +371,6 @@ class StatisticsQualityInTxt(py.DBAdapters.DBBaseAdapter):
             open_mode = "w"
         else:
             open_mode = "a"
-        self.fHandle = open(self.filename, open_mode)
         self.file = open(self.filename, open_mode)
 
     def close(self):
